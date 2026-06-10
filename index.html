@@ -182,6 +182,15 @@ body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; 
 .uc-status.open-now { background:rgba(46,204,138,0.15); color:#5ADBA4; }
 .uc-status.scheduled { background:rgba(74,140,247,0.15); color:#82AEFF; }
 
+/* QR MODAL */
+.qr-modal { max-width:380px; }
+.qr-box { display:flex; flex-direction:column; align-items:center; gap:14px; padding:1rem 0; }
+.qr-canvas-wrap { background:#fff; padding:16px; border-radius:var(--radius); display:inline-block; }
+.qr-event-name { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:var(--text); text-align:center; }
+.qr-instructions { font-size:12px; color:var(--text2); text-align:center; line-height:1.6; max-width:280px; }
+.qr-url { font-size:10px; color:var(--text3); word-break:break-all; text-align:center; font-family:monospace; background:var(--bg3); padding:6px 10px; border-radius:var(--radius); width:100%; }
+.qr-btn-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+
 /* TIGER HINT */
 .tiger-hint { position:fixed; bottom:18px; right:18px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--text3); opacity:0; transition:opacity .5s; pointer-events:none; }
 .tiger-hint.show { opacity:1; }
@@ -289,6 +298,7 @@ td.muted { color:var(--text2); font-size:12px; }
 .countdown-chip.opens-soon { background:rgba(74,140,247,0.15); color:#82AEFF; }
 .countdown-chip.closes-soon { background:rgba(251,190,0,0.15); color:var(--gold); }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -617,6 +627,25 @@ td.muted { color:var(--text2); font-size:12px; }
   </div>
 </div>
 
+
+<!-- ══════════════════ QR CODE MODAL ══════════════════ -->
+<div class="modal-backdrop" id="qrModal">
+  <div class="modal qr-modal">
+    <h3>📱 Event QR Code</h3>
+    <div class="qr-box">
+      <div class="qr-event-name" id="qrEventName"></div>
+      <div class="qr-canvas-wrap">
+        <div id="qrCanvas"></div>
+      </div>
+      <p class="qr-instructions">Display or print this QR code at the event. Students scan it to go directly to the check-in form with this event pre-selected.</p>
+      <div class="qr-url" id="qrUrl"></div>
+      <div class="qr-btn-row">
+        <button class="btn btn-gold" onclick="printQR()">🖨 Print</button>
+        <button class="btn btn-ghost" onclick="closeQRModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════ ADD ENTRY MODAL ══════════════════ -->
 <div class="modal-backdrop" id="addEntryModal">
@@ -1092,6 +1121,7 @@ function renderEventsTable(){
       <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gold);">${count}</td>
       <td style="text-align:right;white-space:nowrap;">
         <button class="btn btn-ghost btn-sm" onclick="editEvent('${ev.id}')">Edit</button>
+        <button class="btn btn-ghost btn-sm" onclick="showQR('${ev.id}')">📱 QR</button>
         ${s==="open"
           ?`<button class="btn btn-danger btn-sm" onclick="forceStatus('${ev.id}','closed')">Close</button>`
           :`<button class="btn btn-green btn-sm" onclick="forceStatus('${ev.id}','open')">Open</button>`}
@@ -1390,6 +1420,123 @@ function showStatus(el,msg,type){el.textContent=msg;el.className="status-msg "+t
 function showModalStatus(el,msg,type){el.textContent=msg;el.className="modal-status "+type;setTimeout(()=>el.className="modal-status",5000);}
 
 /* ══════════════════════════════════════════
+   QR CODE
+══════════════════════════════════════════ */
+function getCheckInURL(eventId) {
+  // Build the URL with the event ID as a hash param
+  const base = window.location.href.split('#')[0].split('?')[0];
+  return base + '?checkin=' + encodeURIComponent(eventId);
+}
+
+function showQR(eventId) {
+  const ev = events.find(e => e.id === eventId);
+  if (!ev) return;
+  const url = getCheckInURL(eventId);
+
+  document.getElementById('qrEventName').textContent = ev.name;
+  document.getElementById('qrUrl').textContent = url;
+
+  // Clear and regenerate QR
+  const canvas = document.getElementById('qrCanvas');
+  canvas.innerHTML = '';
+  new QRCode(canvas, {
+    text: url,
+    width: 220,
+    height: 220,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  document.getElementById('qrModal').classList.add('open');
+}
+
+function closeQRModal() {
+  document.getElementById('qrModal').classList.remove('open');
+}
+
+function printQR() {
+  const evName = document.getElementById('qrEventName').textContent;
+  const canvas = document.getElementById('qrCanvas').querySelector('canvas') ||
+                 document.getElementById('qrCanvas').querySelector('img');
+  if (!canvas) return;
+  const src = canvas.tagName === 'CANVAS' ? canvas.toDataURL() : canvas.src;
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head>
+    <title>QR Code — ${evName}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+      body { margin:0; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#fff; font-family:'Barlow Condensed',sans-serif; }
+      .school { font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:#8b0e04; margin-bottom:6px; }
+      .title { font-size:32px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color:#111; margin-bottom:4px; }
+      .title span { color:#fbbe00; }
+      .evname { font-size:22px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#333; margin-bottom:20px; }
+      img { width:260px; height:260px; }
+      .instr { font-size:13px; color:#666; margin-top:16px; text-transform:uppercase; letter-spacing:.08em; }
+    </style>
+  </head><body>
+    <div class="school">Fort Hays Tech | Northwest</div>
+    <div class="title">Tiger Pride <span>Check-In</span></div>
+    <div class="evname">${evName}</div>
+    <img src="${src}" />
+    <div class="instr">Scan to log your attendance</div>
+  </body></html>`);
+  win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 600);
+}
+
+document.getElementById('qrModal').addEventListener('click', function(e) {
+  if (e.target === this) closeQRModal();
+});
+
+// ── Handle ?checkin=eventId in URL (student scanned QR) ──
+function handleQRCheckin() {
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get('checkin');
+  if (!eventId) return;
+
+  // Wait until events are loaded, then pre-select and lock the event
+  function tryPreselectEvent() {
+    const ev = events.find(e => e.id === eventId);
+    if (!ev) {
+      // Events not loaded yet — retry shortly
+      setTimeout(tryPreselectEvent, 300);
+      return;
+    }
+
+    const status = liveStatus(ev);
+    const wrap = document.getElementById('eventDropdownWrap');
+
+    if (status !== 'open') {
+      wrap.innerHTML = `<div class="no-events-msg" style="color:#f07070;">This event is no longer open for check-in.</div>`;
+      document.getElementById('submitBtn').disabled = true;
+      return;
+    }
+
+    // Build a locked display — show the event name, not a dropdown
+    wrap.innerHTML = `
+      <div style="background:var(--bg3);border:1px solid rgba(251,190,0,0.4);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16px;">📱</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--gold);font-size:15px;">${ev.name}</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px;">Scanned QR check-in${ev.closeDT ? ' · Closes ' + fmtDT(ev.closeDT) : ''}</div>
+        </div>
+      </div>
+      <input type="hidden" id="selEvent" value="${ev.id}" data-type="${ev.type}" />`;
+
+    document.getElementById('submitBtn').disabled = false;
+
+    // Scroll to form smoothly
+    setTimeout(() => {
+      document.getElementById('inpName').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('inpName').focus();
+    }, 400);
+  }
+
+  tryPreselectEvent();
+}
+
+/* ══════════════════════════════════════════
    THEME TOGGLE
 ══════════════════════════════════════════ */
 function applyTheme(mode) {
@@ -1415,7 +1562,7 @@ function toggleTheme() {
 /* ══════════════════════════════════════════
    INIT — auto-refresh every 60s, re-evaluate event statuses every 30s
 ══════════════════════════════════════════ */
-loadData();
+loadData().then(() => handleQRCheckin());
 setInterval(loadData,60000);
 // Re-evaluate scheduled open/close without a full reload
 setInterval(()=>{renderEventDropdown();renderUpcomingEvents();if(isAdmin)renderEventsTable();},30000);
