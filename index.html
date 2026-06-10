@@ -729,7 +729,39 @@ async function loadData(){
     setLoading(60);
     const json=await res.json();
     allData=json.data||[];
-    if(json.events&&json.events.length) events=json.events;
+
+    // Merge incoming events carefully — only update if the incoming data
+    // looks complete (has openDT/closeDT). Never overwrite a good local
+    // event with a blank/corrupted one from the sheet.
+    if(json.events && json.events.length){
+      const incoming = json.events;
+      // If we have no local events yet, take them all as-is
+      if(events.length === 0){
+        events = incoming;
+      } else {
+        // Merge: for each incoming event, only overwrite the local copy
+        // if the incoming one has at least as much data (non-empty openDT)
+        incoming.forEach(ev => {
+          const localIdx = events.findIndex(e => e.id === ev.id);
+          if(localIdx === -1){
+            // New event from sheet — add it
+            events.push(ev);
+          } else {
+            const local = events[localIdx];
+            // Only replace if incoming has dates OR local is already empty
+            const incomingHasDates = ev.openDT || ev.closeDT;
+            const localHasDates    = local.openDT || local.closeDT;
+            if(incomingHasDates || !localHasDates){
+              events[localIdx] = ev;
+            }
+            // If local has dates but incoming doesn't, keep local — sheet data was corrupted
+          }
+        });
+        // Remove local events that no longer exist in the sheet
+        events = events.filter(e => incoming.some(i => i.id === e.id));
+      }
+    }
+
     setLoading(100);
     renderLeaderboard();
     renderFeed();
