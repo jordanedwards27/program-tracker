@@ -10,246 +10,239 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --gold: #fbbe00; --gold-dark: #c99600; --gold-dim: rgba(251,190,0,0.12); --gold-dim2: rgba(251,190,0,0.22);
-  --crimson: #8b0e04; --crimson-light: rgba(139,14,4,0.18);
-  --bg: #111; --bg2: #1a1a1a; --bg3: #222; --bg4: #2b2b2b;
-  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
-  --text: #f5f5f5; --text2: #999; --text3: #555;
-  --green: #2ECC8A; --red: #e84545;
-  --radius: 8px; --radius-lg: 12px;
+  --gold:#fbbe00; --gold-dim:rgba(251,190,0,0.12); --gold-dim2:rgba(251,190,0,0.22);
+  --crimson:#8b0e04; --crimson-light:rgba(139,14,4,0.18);
+  --bg:#111; --bg2:#1a1a1a; --bg3:#222; --bg4:#2b2b2b;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+  --text:#f5f5f5; --text2:#999; --text3:#555;
+  --green:#2ECC8A; --red:#e84545; --blue:#4A8CF7;
+  --radius:8px; --radius-lg:12px;
 }
-body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; line-height: 1.5; }
+body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; line-height:1.5; }
 
-/* ── HEADER ── */
-.header { background: #0d0d0d; border-bottom: 3px solid var(--gold); }
-.header-stripe { background: var(--crimson); height: 5px; }
-.header-inner { max-width: 1120px; margin: 0 auto; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.logo-area { display: flex; align-items: center; gap: 16px; }
-.paw { font-size: 2.6rem; line-height: 1; filter: drop-shadow(0 0 12px rgba(251,190,0,0.4)); }
-.school-name { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
-.tracker-name { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text); line-height: 1; }
-.tracker-name span { color: var(--gold); }
-.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.legend { display: flex; gap: 12px; flex-wrap: wrap; }
-.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text2); }
-.leg-dot { width: 8px; height: 8px; border-radius: 2px; }
-.leg-dot.intra { background: var(--gold); }
-.leg-dot.student { background: #4A8CF7; }
-.leg-dot.athletic { background: var(--crimson); }
-.season-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: var(--gold-dim); border: 1px solid rgba(251,190,0,0.3); padding: 3px 10px; border-radius: 4px; cursor: pointer; }
-.season-badge:hover { background: var(--gold-dim2); }
-.admin-link { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); cursor: pointer; padding: 3px 8px; border-radius: 4px; border: 1px solid transparent; transition: all 0.15s; text-decoration: none; }
-.admin-link:hover { color: var(--text2); border-color: var(--border2); background: var(--bg3); }
+/* HEADER */
+.header { background:#0d0d0d; border-bottom:3px solid var(--gold); }
+.header-stripe { background:var(--crimson); height:5px; }
+.header-inner { max-width:1120px; margin:0 auto; padding:1.25rem 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+.logo-area { display:flex; align-items:center; gap:16px; }
+.paw { font-size:2.6rem; line-height:1; filter:drop-shadow(0 0 12px rgba(251,190,0,0.4)); cursor:default; user-select:none; }
+.school-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+.tracker-name { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color:var(--text); line-height:1; }
+.tracker-name span { color:var(--gold); }
+.header-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.legend { display:flex; gap:12px; flex-wrap:wrap; }
+.leg-item { display:flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text2); }
+.leg-dot { width:8px; height:8px; border-radius:2px; }
+.leg-dot.intra { background:var(--gold); }
+.leg-dot.student { background:var(--blue); }
+.leg-dot.athletic { background:var(--crimson); }
+.season-badge { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); background:var(--gold-dim); border:1px solid rgba(251,190,0,0.3); padding:3px 10px; border-radius:4px; }
 
-/* ── STATS ── */
-.stats-section { max-width: 1120px; margin: 1.25rem auto; padding: 0 2rem; }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1.1rem; position: relative; overflow: hidden; }
-.stat-card.gold-card { border-color: rgba(251,190,0,0.3); }
-.stat-card.gold-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
-.stat-card .s-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 6px; }
-.stat-card .s-value { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--text); line-height: 1; }
-.stat-card.gold-card .s-value { color: var(--gold); }
-.stat-card .s-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+/* STATS */
+.stats-section { max-width:1120px; margin:1.25rem auto; padding:0 2rem; }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:.9rem 1.1rem; position:relative; overflow:hidden; }
+.stat-card.gold-card { border-color:rgba(251,190,0,0.3); }
+.stat-card.gold-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--gold); }
+.s-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text3); margin-bottom:6px; }
+.s-value { font-family:'Barlow Condensed',sans-serif; font-size:2.2rem; font-weight:800; color:var(--text); line-height:1; }
+.stat-card.gold-card .s-value { color:var(--gold); }
+.s-sub { font-size:11px; color:var(--text2); margin-top:4px; }
 
-/* ── MAIN LAYOUT ── */
-.main { max-width: 1120px; margin: 0 auto; padding: 0 2rem 3rem; display: grid; grid-template-columns: 1fr 340px; gap: 1.25rem; }
-@media (max-width: 820px) { .main { grid-template-columns: 1fr; } }
+/* MAIN */
+.main { max-width:1120px; margin:0 auto; padding:0 2rem 3rem; display:grid; grid-template-columns:1fr 340px; gap:1.25rem; }
+@media(max-width:820px){ .main { grid-template-columns:1fr; } }
 
-/* ── PANEL ── */
-.panel { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-.panel-header { padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: var(--bg3); }
-.panel-header h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
+/* PANEL */
+.panel { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+.panel-header { padding:.9rem 1.25rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; background:var(--bg3); }
+.panel-header h2 { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text); }
 
-/* ── TABS ── */
-.tabs { display: flex; gap: 3px; }
-.tab { padding: 5px 11px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border: 1px solid transparent; background: transparent; color: var(--text2); transition: all 0.15s; }
-.tab:hover { background: var(--bg4); color: var(--text); }
-.tab.active { background: var(--gold-dim2); border-color: rgba(251,190,0,0.4); color: var(--gold); }
+/* TABS */
+.tabs { display:flex; gap:3px; }
+.tab { padding:5px 11px; border-radius:5px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; cursor:pointer; border:1px solid transparent; background:transparent; color:var(--text2); transition:all .15s; }
+.tab:hover { background:var(--bg4); color:var(--text); }
+.tab.active { background:var(--gold-dim2); border-color:rgba(251,190,0,0.4); color:var(--gold); }
 
-/* ── LEADERBOARD ── */
-.leaderboard { padding: 4px 0; }
-.prog-row { display: flex; align-items: center; gap: 10px; padding: 8px 1.25rem; border-left: 3px solid transparent; transition: background 0.12s; }
-.prog-row:hover { background: var(--bg3); }
-.prog-row.top1 { border-left-color: var(--gold); background: rgba(251,190,0,0.04); }
-.prog-row.top2 { border-left-color: #b0b0b0; }
-.prog-row.top3 { border-left-color: #c97a4e; }
-.rank { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; min-width: 28px; text-align: center; }
-.rank.r1 { color: var(--gold); font-size: 18px; }
-.rank.r2 { color: #c0c0c0; font-size: 16px; }
-.rank.r3 { color: #c97a4e; font-size: 16px; }
-.rank.rn { color: var(--text3); font-size: 12px; }
-.prog-info { flex: 1; min-width: 0; }
-.prog-name { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.prog-breakdown { font-size: 10px; color: var(--text3); margin-top: 1px; font-weight: 600; letter-spacing: 0.04em; }
-.bar-wrap { width: 90px; height: 5px; background: var(--bg4); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
-.bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
-.pts-col { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); min-width: 42px; text-align: right; }
-.prog-row.top1 .pts-col { color: var(--gold); }
+/* LEADERBOARD */
+.leaderboard { padding:4px 0; }
+.prog-row { display:flex; align-items:center; gap:10px; padding:8px 1.25rem; border-left:3px solid transparent; transition:background .12s; }
+.prog-row:hover { background:var(--bg3); }
+.prog-row.top1 { border-left-color:var(--gold); background:rgba(251,190,0,0.04); }
+.prog-row.top2 { border-left-color:#b0b0b0; }
+.prog-row.top3 { border-left-color:#c97a4e; }
+.rank { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:800; min-width:28px; text-align:center; }
+.rank.r1 { color:var(--gold); font-size:18px; }
+.rank.r2 { color:#c0c0c0; font-size:16px; }
+.rank.r3 { color:#c97a4e; font-size:16px; }
+.rank.rn { color:var(--text3); font-size:12px; }
+.prog-info { flex:1; min-width:0; }
+.prog-name { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.prog-breakdown { font-size:10px; color:var(--text3); margin-top:1px; font-weight:600; letter-spacing:.04em; }
+.bar-wrap { width:90px; height:5px; background:var(--bg4); border-radius:3px; overflow:hidden; flex-shrink:0; }
+.bar-fill { height:100%; border-radius:3px; transition:width .5s ease; }
+.pts-col { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:800; color:var(--text); min-width:42px; text-align:right; }
+.prog-row.top1 .pts-col { color:var(--gold); }
 
-/* ── FORM ── */
-.log-form { padding: 1.25rem; }
-.form-group { margin-bottom: 10px; }
-.form-group label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 5px; }
+/* LOG FORM */
+.log-form { padding:1.25rem; }
+.form-group { margin-bottom:10px; }
+.form-group label { display:block; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text3); margin-bottom:5px; }
 .form-group select, .form-group input, .form-group textarea {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius);
-  color: var(--text); padding: 9px 12px; font-family: 'Barlow', sans-serif; font-size: 13px;
-  appearance: none; -webkit-appearance: none; outline: none; transition: border-color 0.15s;
+  width:100%; background:var(--bg3); border:1px solid var(--border2); border-radius:var(--radius);
+  color:var(--text); padding:9px 12px; font-family:'Barlow',sans-serif; font-size:13px;
+  appearance:none; -webkit-appearance:none; outline:none; transition:border-color .15s;
 }
-.form-group select:focus, .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
-select option { background: #222; }
-.type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.type-btn { padding: 9px 4px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg3); color: var(--text2); font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.3; }
-.type-btn:hover { border-color: var(--border2); color: var(--text); }
-.type-btn.sel-intra { background: var(--gold-dim2); border-color: rgba(251,190,0,0.5); color: var(--gold); }
-.type-btn.sel-student { background: rgba(74,140,247,0.15); border-color: rgba(74,140,247,0.5); color: #82AEFF; }
-.type-btn.sel-athletic { background: var(--crimson-light); border-color: rgba(139,14,4,0.5); color: #ff6b60; }
-.submit-btn { width: 100%; padding: 12px; background: var(--gold); border: none; border-radius: var(--radius); color: #111; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; margin-top: 4px; transition: background 0.15s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.submit-btn:hover { background: #e8ae00; }
-.submit-btn:active { transform: scale(0.98); }
-.submit-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.toast { display: none; margin-top: 10px; padding: 9px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 600; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
-.toast.success { background: rgba(46,204,138,0.12); border: 1px solid rgba(46,204,138,0.4); color: #5ADBA4; display: block; }
-.toast.error { background: rgba(232,69,69,0.12); border: 1px solid rgba(232,69,69,0.4); color: #F07070; display: block; }
+.form-group select:focus, .form-group input:focus { border-color:var(--gold); }
+select option { background:#222; }
+.type-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+.type-btn { padding:9px 4px; border-radius:var(--radius); border:1px solid var(--border); background:var(--bg3); color:var(--text2); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; cursor:pointer; text-align:center; transition:all .15s; line-height:1.3; }
+.type-btn:hover { border-color:var(--border2); color:var(--text); }
+.type-btn.sel-intra { background:var(--gold-dim2); border-color:rgba(251,190,0,0.5); color:var(--gold); }
+.type-btn.sel-student { background:rgba(74,140,247,0.15); border-color:rgba(74,140,247,0.5); color:#82AEFF; }
+.type-btn.sel-athletic { background:var(--crimson-light); border-color:rgba(139,14,4,0.5); color:#ff6b60; }
 
-/* ── FEED ── */
-.feed-list { padding: 0; max-height: 300px; overflow-y: auto; }
-.feed-list::-webkit-scrollbar { width: 3px; }
-.feed-list::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
-.feed-item { display: flex; align-items: center; gap: 8px; padding: 8px 1.25rem; border-bottom: 1px solid var(--border); }
-.feed-item:last-child { border-bottom: none; }
-.feed-dot { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
-.feed-name { flex: 1; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.feed-event { font-size: 11px; color: var(--text2); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.feed-pts { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 800; color: var(--gold); min-width: 32px; text-align: right; }
-.empty-state { padding: 2rem 1.25rem; text-align: center; color: var(--text3); font-size: 13px; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; }
-.refresh-btn { background: transparent; border: 1px solid var(--border2); border-radius: 5px; color: var(--text2); padding: 4px 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s; }
-.refresh-btn:hover { background: var(--bg4); color: var(--text); }
-.loading-bar { height: 2px; background: var(--gold); width: 0%; transition: width 0.4s ease; position: fixed; top: 0; left: 0; z-index: 9999; }
-.spinner { width: 16px; height: 16px; border: 2px solid rgba(17,17,17,0.3); border-top-color: #111; border-radius: 50%; animation: spin 0.7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+/* student name notice */
+.name-note { font-size:11px; color:var(--text3); margin-top:-6px; margin-bottom:8px; line-height:1.5; font-style:italic; }
 
-/* ── FOOTER ── */
-.footer { text-align: center; padding: 1.5rem 2rem 2rem; color: var(--text3); font-size: 11px; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; border-top: 1px solid var(--border); max-width: 1120px; margin: 0 auto; }
-.footer a { color: var(--gold); text-decoration: none; }
+.submit-btn { width:100%; padding:12px; background:var(--gold); border:none; border-radius:var(--radius); color:#111; font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; cursor:pointer; margin-top:4px; transition:background .15s, transform .1s; display:flex; align-items:center; justify-content:center; gap:6px; }
+.submit-btn:hover { background:#e8ae00; }
+.submit-btn:active { transform:scale(0.98); }
+.submit-btn:disabled { opacity:.45; cursor:not-allowed; }
+.toast { display:none; margin-top:10px; padding:9px 12px; border-radius:var(--radius); font-size:12px; font-weight:600; font-family:'Barlow Condensed',sans-serif; letter-spacing:.05em; text-transform:uppercase; }
+.toast.success { background:rgba(46,204,138,0.12); border:1px solid rgba(46,204,138,0.4); color:#5ADBA4; display:block; }
+.toast.error { background:rgba(232,69,69,0.12); border:1px solid rgba(232,69,69,0.4); color:#F07070; display:block; }
 
-/* ══════════════════════════════════════════
-   ADMIN OVERLAY
-══════════════════════════════════════════ */
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; overflow-y: auto; padding: 2rem 1rem; }
-.overlay.open { display: block; }
-.admin-shell { max-width: 960px; margin: 0 auto; }
+/* FEED */
+.feed-list { padding:0; max-height:300px; overflow-y:auto; }
+.feed-list::-webkit-scrollbar { width:3px; }
+.feed-list::-webkit-scrollbar-thumb { background:var(--bg4); border-radius:2px; }
+.feed-item { display:flex; align-items:center; gap:8px; padding:8px 1.25rem; border-bottom:1px solid var(--border); }
+.feed-item:last-child { border-bottom:none; }
+.feed-dot { width:6px; height:6px; border-radius:1px; flex-shrink:0; }
+.feed-name { flex:1; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text); min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.feed-event { font-size:11px; color:var(--text2); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.feed-pts { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:800; color:var(--gold); min-width:32px; text-align:right; }
+.empty-state { padding:2rem 1.25rem; text-align:center; color:var(--text3); font-size:13px; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.08em; }
+.refresh-btn { background:transparent; border:1px solid var(--border2); border-radius:5px; color:var(--text2); padding:4px 10px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; cursor:pointer; transition:all .15s; }
+.refresh-btn:hover { background:var(--bg4); color:var(--text); }
+.loading-bar { height:2px; background:var(--gold); width:0%; transition:width .4s ease; position:fixed; top:0; left:0; z-index:9999; }
+.spinner { width:16px; height:16px; border:2px solid rgba(17,17,17,0.3); border-top-color:#111; border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
 
-/* Admin header */
-.admin-header { background: #0d0d0d; border: 1px solid rgba(251,190,0,0.3); border-bottom: 3px solid var(--gold); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-.admin-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); }
-.admin-title small { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: var(--text3); margin-top: 2px; }
-.close-btn { background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius); color: var(--text2); font-size: 18px; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
-.close-btn:hover { background: var(--crimson); color: white; border-color: var(--crimson); }
+/* FOOTER */
+.footer { text-align:center; padding:1.5rem 2rem 2rem; color:var(--text3); font-size:11px; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.1em; border-top:1px solid var(--border); max-width:1120px; margin:0 auto; }
+.footer a { color:var(--gold); text-decoration:none; }
 
-/* Admin nav tabs */
-.admin-nav { background: var(--bg2); border-left: 1px solid rgba(251,190,0,0.2); border-right: 1px solid rgba(251,190,0,0.2); padding: 0 1.5rem; display: flex; gap: 4px; border-bottom: 1px solid var(--border); }
-.anav { padding: 10px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border: none; background: transparent; color: var(--text2); border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
-.anav:hover { color: var(--text); }
-.anav.active { color: var(--gold); border-bottom-color: var(--gold); }
+/* TIGER EASTER EGG hint */
+.tiger-hint { position:fixed; bottom:18px; right:18px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--text3); opacity:0; transition:opacity .5s; pointer-events:none; }
+.tiger-hint.show { opacity:1; }
 
-/* Admin body */
-.admin-body { background: var(--bg2); border: 1px solid rgba(251,190,0,0.2); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 1.5rem; }
+/* ══════════════════════════════════════
+   ADMIN LOGIN PAGE
+══════════════════════════════════════ */
+.login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem; }
+.login-card { background:var(--bg2); border:1px solid rgba(251,190,0,0.3); border-top:3px solid var(--gold); border-radius:var(--radius-lg); padding:2rem; width:100%; max-width:340px; }
+.login-card h2 { font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:900; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:4px; }
+.login-card p { font-size:12px; color:var(--text2); margin-bottom:1.5rem; }
+.login-err { font-size:12px; color:#f07070; margin-top:8px; display:none; font-family:'Barlow Condensed',sans-serif; font-weight:600; letter-spacing:.05em; }
 
-/* Admin sections */
-.admin-section { display: none; }
-.admin-section.active { display: block; }
-.section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+/* ══════════════════════════════════════
+   ADMIN PANEL
+══════════════════════════════════════ */
+.admin-nav { background:var(--bg2); border-left:1px solid rgba(251,190,0,0.2); border-right:1px solid rgba(251,190,0,0.2); padding:0 1.5rem; display:flex; gap:4px; border-bottom:1px solid var(--border); }
+.anav { padding:10px 16px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; border:none; background:transparent; color:var(--text2); border-bottom:3px solid transparent; margin-bottom:-1px; transition:all .15s; }
+.anav:hover { color:var(--text); }
+.anav.active { color:var(--gold); border-bottom-color:var(--gold); }
+.admin-body { background:var(--bg2); border:1px solid rgba(251,190,0,0.2); border-top:none; border-radius:0 0 var(--radius-lg) var(--radius-lg); padding:1.5rem; }
+.admin-section { display:none; }
+.admin-section.active { display:block; }
+.section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--text3); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.settings-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+@media(max-width:600px){ .settings-grid { grid-template-columns:1fr; } }
+.setting-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; }
+.setting-card h4 { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text); margin-bottom:8px; }
+.setting-card p { font-size:12px; color:var(--text2); margin-bottom:10px; line-height:1.5; }
+.setting-input-row { display:flex; gap:8px; }
+.setting-input-row input { flex:1; }
 
-/* Settings grid */
-.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-@media (max-width: 600px) { .settings-grid { grid-template-columns: 1fr; } }
-.setting-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-.setting-card h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 10px; }
-.setting-card p { font-size: 12px; color: var(--text2); margin-bottom: 10px; line-height: 1.5; }
-.setting-input-row { display: flex; gap: 8px; }
-.setting-input-row input { flex: 1; }
+/* BTN */
+.btn { padding:8px 16px; border-radius:var(--radius); font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; cursor:pointer; border:1px solid transparent; transition:all .15s; display:inline-flex; align-items:center; gap:6px; }
+.btn-gold { background:var(--gold); color:#111; border-color:var(--gold); }
+.btn-gold:hover { background:#e8ae00; }
+.btn-ghost { background:transparent; color:var(--text2); border-color:var(--border2); }
+.btn-ghost:hover { background:var(--bg4); color:var(--text); }
+.btn-danger { background:transparent; color:#f07070; border-color:rgba(232,69,69,0.4); }
+.btn-danger:hover { background:rgba(232,69,69,0.12); }
+.btn-sm { padding:5px 10px; font-size:11px; }
+.btn:disabled { opacity:.4; cursor:not-allowed; }
 
-/* Btn styles */
-.btn { padding: 8px 16px; border-radius: var(--radius); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border: 1px solid transparent; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
-.btn-gold { background: var(--gold); color: #111; border-color: var(--gold); }
-.btn-gold:hover { background: #e8ae00; }
-.btn-ghost { background: transparent; color: var(--text2); border-color: var(--border2); }
-.btn-ghost:hover { background: var(--bg4); color: var(--text); }
-.btn-danger { background: transparent; color: #f07070; border-color: rgba(232,69,69,0.4); }
-.btn-danger:hover { background: rgba(232,69,69,0.12); }
-.btn-sm { padding: 5px 10px; font-size: 11px; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* TABLE */
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text3); padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
+tbody tr { border-bottom:1px solid var(--border); transition:background .1s; }
+tbody tr:hover { background:var(--bg3); }
+tbody tr:last-child { border-bottom:none; }
+td { padding:8px 10px; color:var(--text); vertical-align:middle; }
+td.muted { color:var(--text2); font-size:12px; }
+.type-pill { display:inline-block; padding:2px 8px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+.type-pill.intramural { background:var(--gold-dim); color:var(--gold); }
+.type-pill.student { background:rgba(74,140,247,0.15); color:#82AEFF; }
+.type-pill.athletic { background:var(--crimson-light); color:#ff6b60; }
+.edit-row { display:none; background:var(--bg3); }
+.edit-row td { padding:12px 10px; }
+.edit-form { display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:8px; align-items:end; }
+@media(max-width:600px){ .edit-form { grid-template-columns:1fr 1fr; } }
 
-/* Entries table */
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-thead th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
-tbody tr:hover { background: var(--bg3); }
-tbody tr:last-child { border-bottom: none; }
-td { padding: 8px 10px; color: var(--text); vertical-align: middle; }
-td.muted { color: var(--text2); font-size: 12px; }
-.type-pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-.type-pill.intramural { background: var(--gold-dim); color: var(--gold); }
-.type-pill.student { background: rgba(74,140,247,0.15); color: #82AEFF; }
-.type-pill.athletic { background: var(--crimson-light); color: #ff6b60; }
-.edit-row { display: none; background: var(--bg3); }
-.edit-row td { padding: 12px 10px; }
-.edit-form { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 8px; align-items: end; }
-@media (max-width: 600px) { .edit-form { grid-template-columns: 1fr 1fr; } }
+/* PROG LIST */
+.prog-list { display:flex; flex-direction:column; gap:6px; max-height:420px; overflow-y:auto; padding-right:4px; }
+.prog-list::-webkit-scrollbar { width:3px; }
+.prog-list::-webkit-scrollbar-thumb { background:var(--bg4); border-radius:2px; }
+.prog-item { display:flex; align-items:center; gap:8px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:8px 12px; }
+.prog-item-name { flex:1; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text); }
+.prog-item input { flex:1; }
+.add-prog-row { display:flex; gap:8px; margin-top:10px; }
+.add-prog-row input { flex:1; }
 
-/* Program list */
-.prog-list { display: flex; flex-direction: column; gap: 6px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
-.prog-list::-webkit-scrollbar { width: 3px; }
-.prog-list::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
-.prog-item { display: flex; align-items: center; gap: 8px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 12px; }
-.prog-item-name { flex: 1; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text); }
-.prog-item input { flex: 1; }
-.add-prog-row { display: flex; gap: 8px; margin-top: 10px; }
-.add-prog-row input { flex: 1; }
+/* STATUS */
+.status-msg { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:6px 12px; border-radius:var(--radius); margin-bottom:10px; display:none; }
+.status-msg.ok { background:rgba(46,204,138,0.12); border:1px solid rgba(46,204,138,0.3); color:#5ADBA4; display:block; }
+.status-msg.err { background:rgba(232,69,69,0.12); border:1px solid rgba(232,69,69,0.3); color:#f07070; display:block; }
 
-/* login */
-.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
-.login-card { background: var(--bg2); border: 1px solid rgba(251,190,0,0.3); border-top: 3px solid var(--gold); border-radius: var(--radius-lg); padding: 2rem; width: 100%; max-width: 340px; }
-.login-card h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); margin-bottom: 4px; }
-.login-card p { font-size: 12px; color: var(--text2); margin-bottom: 1.5rem; }
-.login-err { font-size: 12px; color: #f07070; margin-top: 8px; display: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.05em; }
+/* FILTER */
+.filter-row { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; align-items:center; }
+.filter-row input, .filter-row select { background:var(--bg3); border:1px solid var(--border2); border-radius:var(--radius); color:var(--text); padding:7px 10px; font-family:'Barlow',sans-serif; font-size:12px; outline:none; appearance:none; }
+.filter-row input:focus, .filter-row select:focus { border-color:var(--gold); }
+.count-badge { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; color:var(--text3); margin-left:auto; white-space:nowrap; }
 
-/* Filter row */
-.filter-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
-.filter-row input, .filter-row select { background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius); color: var(--text); padding: 7px 10px; font-family: 'Barlow', sans-serif; font-size: 12px; outline: none; }
-.filter-row input:focus, .filter-row select:focus { border-color: var(--gold); }
-.count-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; color: var(--text3); margin-left: auto; white-space: nowrap; }
-
-/* Status tag */
-.status-msg { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius); margin-bottom: 10px; display: none; }
-.status-msg.ok { background: rgba(46,204,138,0.12); border: 1px solid rgba(46,204,138,0.3); color: #5ADBA4; display: block; }
-.status-msg.err { background: rgba(232,69,69,0.12); border: 1px solid rgba(232,69,69,0.3); color: #f07070; display: block; }
+/* ADD ENTRY MODAL */
+.modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:2000; align-items:center; justify-content:center; padding:1rem; }
+.modal-backdrop.open { display:flex; }
+.modal { background:var(--bg2); border:1px solid rgba(251,190,0,0.3); border-top:3px solid var(--gold); border-radius:var(--radius-lg); padding:1.5rem; width:100%; max-width:420px; }
+.modal h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:1rem; }
+.modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:1rem; }
 </style>
 </head>
 <body>
 
 <div class="loading-bar" id="loadingBar"></div>
+<div class="tiger-hint" id="tigerHint">T·I·G·E·R</div>
 
 <!-- ═══════════ PUBLIC PAGE ═══════════ -->
 <div id="publicPage">
-
   <div class="header">
     <div class="header-stripe"></div>
     <div class="header-inner">
       <div class="logo-area">
-        <div class="paw">🐯</div>
+        <div class="paw" id="pawIcon" title="Go Tigers!">🐯</div>
         <div class="title-block">
           <div class="school-name">Fort Hays Tech | Northwest &mdash; Goodland, KS</div>
           <div class="tracker-name">Tiger Pride <span>Leaderboard</span></div>
         </div>
       </div>
       <div class="header-right">
-        <div style="display:flex;gap:8px;align-items:center;">
-          <span class="season-badge" id="seasonBadge">&#9733; 2026–2027 Season</span>
-          <span class="admin-link" onclick="openAdmin()">Admin</span>
-        </div>
+        <span class="season-badge" id="seasonBadge">&#9733; 2026–2027 Season</span>
         <div class="legend">
           <div class="leg-item"><div class="leg-dot intra"></div> Intramural</div>
           <div class="leg-item"><div class="leg-dot student"></div> Student Life</div>
@@ -276,10 +269,10 @@ td.muted { color: var(--text2); font-size: 12px; }
           <div style="display:flex;align-items:center;gap:8px;">
             <button class="refresh-btn" onclick="loadData()">↻ Refresh</button>
             <div class="tabs">
-              <button class="tab active" data-tab="all" onclick="setTab('all',this)">All</button>
-              <button class="tab" data-tab="intramural" onclick="setTab('intramural',this)">Intramural</button>
-              <button class="tab" data-tab="student" onclick="setTab('student',this)">Student Life</button>
-              <button class="tab" data-tab="athletic" onclick="setTab('athletic',this)">Athletic</button>
+              <button class="tab active" onclick="setTab('all',this)">All</button>
+              <button class="tab" onclick="setTab('intramural',this)">Intramural</button>
+              <button class="tab" onclick="setTab('student',this)">Student Life</button>
+              <button class="tab" onclick="setTab('athletic',this)">Athletic</button>
             </div>
           </div>
         </div>
@@ -287,12 +280,16 @@ td.muted { color: var(--text2); font-size: 12px; }
       </div>
     </div>
 
-    <div class="right-col">
+    <div class="right-col" style="display:flex;flex-direction:column;gap:1.25rem;">
       <div class="panel">
-        <div class="panel-header"><h2>Log Attendance</h2></div>
+        <div class="panel-header"><h2>I Was There — Log My Attendance</h2></div>
         <div class="log-form">
           <div class="form-group">
-            <label>Program</label>
+            <label>Your Name</label>
+            <input type="text" id="inpName" placeholder="First and Last Name" />
+          </div>
+          <div class="form-group">
+            <label>Your Program</label>
             <select id="selProgram"></select>
           </div>
           <div class="form-group">
@@ -307,12 +304,9 @@ td.muted { color: var(--text2); font-size: 12px; }
             <label>Event Name</label>
             <input type="text" id="inpEvent" placeholder="e.g. Basketball Tournament" />
           </div>
-          <div class="form-group">
-            <label>Attendees</label>
-            <input type="number" id="inpCount" value="1" min="1" />
-          </div>
+          <p class="name-note">Each student submits once per event. Your name is recorded to keep it fair.</p>
           <button class="submit-btn" id="submitBtn" onclick="logAttendance()">
-            <span id="submitTxt">Log Attendance</span>
+            <span id="submitTxt">Log My Attendance</span>
           </button>
           <div class="toast" id="toast"></div>
         </div>
@@ -333,6 +327,16 @@ td.muted { color: var(--text2); font-size: 12px; }
 
 <!-- ═══════════ ADMIN LOGIN ═══════════ -->
 <div id="adminLogin" style="display:none;">
+  <div class="header"><div class="header-stripe"></div>
+    <div class="header-inner">
+      <div class="logo-area"><div class="paw">🐯</div>
+        <div class="title-block">
+          <div class="school-name">Fort Hays Tech | Northwest</div>
+          <div class="tracker-name">Admin <span>Login</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="login-wrap">
     <div class="login-card">
       <h2>🐯 Admin Access</h2>
@@ -344,7 +348,7 @@ td.muted { color: var(--text2); font-size: 12px; }
       <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:4px;" onclick="doLogin()">Sign In</button>
       <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
       <div style="margin-top:1rem;text-align:center;">
-        <span class="admin-link" onclick="showPublic()" style="color:var(--text3);">← Back to Leaderboard</span>
+        <span class="btn btn-ghost btn-sm" style="cursor:pointer;" onclick="showPublic()">← Back to Leaderboard</span>
       </div>
     </div>
   </div>
@@ -353,134 +357,143 @@ td.muted { color: var(--text2); font-size: 12px; }
 
 <!-- ═══════════ ADMIN PANEL ═══════════ -->
 <div id="adminPanel" style="display:none;">
-
-  <div class="header">
-    <div class="header-stripe"></div>
+  <div class="header"><div class="header-stripe"></div>
     <div class="header-inner">
-      <div class="logo-area">
-        <div class="paw">🐯</div>
+      <div class="logo-area"><div class="paw">🐯</div>
         <div class="title-block">
           <div class="school-name">Fort Hays Tech | Northwest &mdash; Admin Panel</div>
           <div class="tracker-name">Tiger Pride <span>Admin</span></div>
         </div>
       </div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <button class="btn btn-ghost btn-sm" onclick="showPublic()">← Back to Leaderboard</button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="showPublic()">← Leaderboard</button>
         <button class="btn btn-danger btn-sm" onclick="doLogout()">Sign Out</button>
       </div>
     </div>
   </div>
 
   <div style="max-width:1120px;margin:1.5rem auto;padding:0 2rem 3rem;">
-
-    <!-- Admin nav -->
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;">
       <div class="admin-nav">
         <button class="anav active" onclick="showSection('entries',this)">Entries</button>
         <button class="anav" onclick="showSection('programs',this)">Programs</button>
         <button class="anav" onclick="showSection('settings',this)">Settings</button>
       </div>
+      <div class="admin-body">
 
-      <div style="padding:1.5rem;">
-
-        <!-- ── ENTRIES SECTION ── -->
+        <!-- ENTRIES -->
         <div class="admin-section active" id="sec-entries">
-          <div class="section-label">All Logged Entries — Edit or Delete Any Row</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div class="section-label" style="margin:0;border:none;padding:0;">All Logged Entries</div>
+            <button class="btn btn-gold btn-sm" onclick="openAddModal()">+ Add Entry</button>
+          </div>
           <div class="status-msg" id="entriesStatus"></div>
           <div class="filter-row">
-            <input type="text" id="filterText" placeholder="Search program or event…" oninput="renderAdminTable()" style="min-width:180px;" />
-            <select id="filterType" onchange="renderAdminTable()">
+            <input type="text" id="filterText" placeholder="Search…" oninput="renderAdminTable()" style="min-width:160px;" />
+            <select id="filterType" onchange="renderAdminTable()" style="-webkit-appearance:none;">
               <option value="">All types</option>
               <option value="intramural">Intramural</option>
               <option value="student">Student Life</option>
               <option value="athletic">Athletic</option>
             </select>
-            <select id="filterProg" onchange="renderAdminTable()">
-              <option value="">All programs</option>
-            </select>
+            <select id="filterProg" onchange="renderAdminTable()" style="-webkit-appearance:none;"></select>
             <span class="count-badge" id="entryCount"></span>
           </div>
           <div class="table-wrap">
-            <table id="entriesTable">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Timestamp</th>
-                  <th>Program</th>
-                  <th>Type</th>
-                  <th>Event</th>
-                  <th>Attendees</th>
-                  <th style="text-align:right;">Actions</th>
-                </tr>
-              </thead>
+            <table>
+              <thead><tr>
+                <th>#</th><th>Time</th><th>Student</th><th>Program</th><th>Type</th><th>Event</th><th style="text-align:right;">Actions</th>
+              </tr></thead>
               <tbody id="entriesTbody"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ── PROGRAMS SECTION ── -->
+        <!-- PROGRAMS -->
         <div class="admin-section" id="sec-programs">
-          <div class="section-label">Manage Programs — Add, Rename, or Remove</div>
+          <div class="section-label">Manage Programs</div>
           <div class="status-msg" id="programsStatus"></div>
           <div class="prog-list" id="adminProgList"></div>
           <div class="add-prog-row">
             <input type="text" id="newProgInput" placeholder="New program name…" onkeydown="if(event.key==='Enter')addProgram()" />
-            <button class="btn btn-gold" onclick="addProgram()">+ Add Program</button>
+            <button class="btn btn-gold" onclick="addProgram()">+ Add</button>
           </div>
-          <p style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;">Changes update the log form immediately. Renaming a program does not update historical entries — use the Entries tab to fix those individually.</p>
+          <p style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6;">Renaming a program does not update historical entries — use the Entries tab to fix those individually.</p>
         </div>
 
-        <!-- ── SETTINGS SECTION ── -->
+        <!-- SETTINGS -->
         <div class="admin-section" id="sec-settings">
           <div class="section-label">Site Settings</div>
           <div class="status-msg" id="settingsStatus"></div>
           <div class="settings-grid">
-
             <div class="setting-card">
               <h4>Season Label</h4>
-              <p>The label shown in the header badge (e.g. "2026–2027 Season").</p>
+              <p>Shown in the header badge.</p>
               <div class="setting-input-row">
                 <input type="text" id="seasonInput" value="2026–2027 Season" />
                 <button class="btn btn-gold" onclick="saveSeason()">Save</button>
               </div>
             </div>
-
             <div class="setting-card">
               <h4>Change Admin Password</h4>
-              <p>Updates the password stored in this file. You'll need to re-upload to GitHub after changing.</p>
-              <div class="form-group" style="margin-bottom:8px;">
-                <label>New Password</label>
-                <input type="password" id="newPw1" placeholder="New password" />
-              </div>
-              <div class="form-group" style="margin-bottom:8px;">
-                <label>Confirm Password</label>
-                <input type="password" id="newPw2" placeholder="Confirm password" />
-              </div>
-              <button class="btn btn-gold" onclick="changePassword()">Update Password</button>
+              <p>After changing, update the password in the HTML file and re-upload to GitHub to make it permanent.</p>
+              <div class="form-group" style="margin-bottom:8px;"><label>New Password</label><input type="password" id="newPw1" /></div>
+              <div class="form-group" style="margin-bottom:8px;"><label>Confirm</label><input type="password" id="newPw2" /></div>
+              <button class="btn btn-gold" onclick="changePassword()">Update</button>
               <div class="status-msg" id="pwStatus" style="margin-top:8px;"></div>
             </div>
-
             <div class="setting-card" style="grid-column:1/-1;">
-              <h4>Reset All Data</h4>
-              <p>This does <strong style="color:#f07070;">not</strong> delete anything from Google Sheets — it only affects what's displayed here. To permanently delete entries, remove them from the Entries tab or directly in your Google Sheet.</p>
-              <button class="btn btn-danger" onclick="confirmReset()">Clear Local Cache</button>
+              <h4>Clear Local Cache</h4>
+              <p>Resets the local data cache. Does <strong style="color:#f07070;">not</strong> delete anything from Google Sheets.</p>
+              <button class="btn btn-danger" onclick="confirmReset()">Clear Cache</button>
             </div>
           </div>
         </div>
 
-      </div><!-- end padding div -->
-    </div><!-- end admin card -->
+      </div>
+    </div>
   </div>
 </div><!-- end adminPanel -->
 
 
+<!-- ═══════════ ADD ENTRY MODAL ═══════════ -->
+<div class="modal-backdrop" id="addModal">
+  <div class="modal">
+    <h3>➕ Add Entry Manually</h3>
+    <div class="form-group">
+      <label>Student Name</label>
+      <input type="text" id="ae-name" placeholder="First and Last Name" />
+    </div>
+    <div class="form-group">
+      <label>Program</label>
+      <select id="ae-prog"></select>
+    </div>
+    <div class="form-group">
+      <label>Event Type</label>
+      <select id="ae-type">
+        <option value="intramural">Intramural</option>
+        <option value="student">Student Life</option>
+        <option value="athletic">Athletic</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Event Name</label>
+      <input type="text" id="ae-event" placeholder="e.g. Basketball Tournament" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeAddModal()">Cancel</button>
+      <button class="btn btn-gold" id="ae-submit" onclick="submitAddEntry()">Add Entry</button>
+    </div>
+    <div class="status-msg" id="aeStatus" style="margin-top:8px;"></div>
+  </div>
+</div>
+
+
 <script>
-/* ═══════════════════════════════════════
-   CONFIG
-═══════════════════════════════════════ */
+/* ─── CONFIG ─── */
 const API = "https://script.google.com/macros/s/AKfycbyYQMh2fCVIeGZGo35g6lSxcwUzzCa-qZopaZB8E2uX8f0HjzVLhTYFwQcT4k-5kM9x/exec";
 let ADMIN_PASSWORD = "TechTigers1964!";
-let SEASON_LABEL = "2026–2027 Season";
+let SEASON_LABEL   = "2026–2027 Season";
 
 const DEFAULT_PROGRAMS = [
   "Automotive Technology","Business Technology","Child Care Specialist",
@@ -490,25 +503,46 @@ const DEFAULT_PROGRAMS = [
   "Plumbing","Precision Agriculture Technology","Respiratory Care",
   "Welding Technology","Welding Technology (Gove County)"
 ];
-
 const PROG_COLORS = [
   "#fbbe00","#e8a800","#d49200","#f0a030","#e88c20","#c97a4e","#b86840","#a05530",
   "#8b0e04","#a41208","#c01510","#d42515","#e03520","#ff6b60","#ff8870","#c09050","#d4aa60","#e8c470"
 ];
 const TYPE_DOT = { intramural:"#fbbe00", student:"#4A8CF7", athletic:"#c01510" };
 
-/* ═══════════════════════════════════════
-   STATE
-═══════════════════════════════════════ */
-let allData = [];
-let programs = [...DEFAULT_PROGRAMS];
-let currentTab = "all";
+/* ─── STATE ─── */
+let allData      = [];
+let programs     = [...DEFAULT_PROGRAMS];
+let currentTab   = "all";
 let selectedType = "intramural";
-let isAdmin = false;
+let isAdmin      = false;
 
-/* ═══════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════ */
+/* ─── TIGER KEYBOARD TRIGGER ─── */
+(function(){
+  const SEQ = "TIGER";
+  let buf = "";
+  let hintTimer;
+  document.addEventListener("keydown", e => {
+    // Only on public page and not in an input
+    if (document.getElementById("publicPage").style.display === "none") return;
+    if (["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)) return;
+    buf += e.key.toUpperCase();
+    if (buf.length > SEQ.length) buf = buf.slice(-SEQ.length);
+    // Show subtle hint after T is pressed
+    if (buf === "T") {
+      const hint = document.getElementById("tigerHint");
+      hint.classList.add("show");
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(() => hint.classList.remove("show"), 2000);
+    }
+    if (buf === SEQ) {
+      buf = "";
+      document.getElementById("tigerHint").classList.remove("show");
+      openAdmin();
+    }
+  });
+})();
+
+/* ─── NAVIGATION ─── */
 function showPublic() {
   document.getElementById("publicPage").style.display = "block";
   document.getElementById("adminLogin").style.display = "none";
@@ -528,13 +562,13 @@ function showAdminPanel() {
   document.getElementById("publicPage").style.display = "none";
   document.getElementById("adminLogin").style.display = "none";
   document.getElementById("adminPanel").style.display = "block";
+  rebuildAdminProgSelect();
   renderAdminProgList();
   renderAdminTable();
   document.getElementById("seasonInput").value = SEASON_LABEL;
 }
 function doLogin() {
-  const pw = document.getElementById("loginPw").value;
-  if (pw === ADMIN_PASSWORD) {
+  if (document.getElementById("loginPw").value === ADMIN_PASSWORD) {
     isAdmin = true;
     showAdminPanel();
   } else {
@@ -543,10 +577,7 @@ function doLogin() {
     document.getElementById("loginPw").focus();
   }
 }
-function doLogout() {
-  isAdmin = false;
-  showPublic();
-}
+function doLogout() { isAdmin = false; showPublic(); }
 function showSection(id, btn) {
   document.querySelectorAll(".admin-section").forEach(s => s.classList.remove("active"));
   document.querySelectorAll(".anav").forEach(b => b.classList.remove("active"));
@@ -554,25 +585,27 @@ function showSection(id, btn) {
   btn.classList.add("active");
 }
 
-/* ═══════════════════════════════════════
-   PUBLIC — PROGRAMS SELECT
-═══════════════════════════════════════ */
+/* ─── PROGRAM SELECTS ─── */
 function rebuildProgramSelect() {
-  const sel = document.getElementById("selProgram");
-  const cur = sel.value;
-  sel.innerHTML = "";
-  programs.forEach(p => {
-    const o = document.createElement("option");
-    o.value = o.textContent = p;
-    sel.appendChild(o);
+  const s = document.getElementById("selProgram");
+  const cur = s.value;
+  s.innerHTML = "";
+  programs.forEach(p => { const o=document.createElement("option"); o.value=o.textContent=p; s.appendChild(o); });
+  if (programs.includes(cur)) s.value = cur;
+}
+function rebuildAdminProgSelect() {
+  ["ae-prog"].forEach(id => {
+    const s = document.getElementById(id);
+    if (!s) return;
+    const cur = s.value;
+    s.innerHTML = "";
+    programs.forEach(p => { const o=document.createElement("option"); o.value=o.textContent=p; s.appendChild(o); });
+    if (programs.includes(cur)) s.value = cur;
   });
-  if (programs.includes(cur)) sel.value = cur;
 }
 rebuildProgramSelect();
 
-/* ═══════════════════════════════════════
-   PUBLIC — EVENT TYPE
-═══════════════════════════════════════ */
+/* ─── EVENT TYPE ─── */
 function selType(t) {
   selectedType = t;
   document.querySelectorAll(".type-btn").forEach(b => b.className = "type-btn");
@@ -586,9 +619,7 @@ function setTab(tab, btn) {
   renderLeaderboard();
 }
 
-/* ═══════════════════════════════════════
-   DATA
-═══════════════════════════════════════ */
+/* ─── DATA ─── */
 function setLoading(pct) {
   const bar = document.getElementById("loadingBar");
   bar.style.width = pct + "%";
@@ -603,41 +634,52 @@ async function loadData() {
     allData = json.data || [];
     renderLeaderboard();
     renderFeed();
-    if (isAdmin) { renderAdminTable(); }
+    if (isAdmin) renderAdminTable();
     setLoading(100);
   } catch(e) {
     setLoading(100);
     document.getElementById("leaderboard").innerHTML = '<div class="empty-state" style="color:#f07070;">Could not load data.</div>';
   }
 }
+
+/* Attendee count is always 1 — students log themselves */
 async function logAttendance() {
+  const name = document.getElementById("inpName").value.trim();
   const program = document.getElementById("selProgram").value;
-  const eventName = document.getElementById("inpEvent").value.trim() || "Event";
-  const attendees = Math.max(1, parseInt(document.getElementById("inpCount").value) || 1);
+  const eventName = document.getElementById("inpEvent").value.trim();
   const btn = document.getElementById("submitBtn");
   const toastEl = document.getElementById("toast");
+
+  if (!name) { showToast("error","Please enter your name."); return; }
+  if (!eventName) { showToast("error","Please enter the event name."); return; }
+
   btn.disabled = true;
   btn.innerHTML = '<div class="spinner"></div>';
   toastEl.className = "toast";
+
   try {
-    await fetch(API, { method:"POST", body: JSON.stringify({ action:"log", program, eventType:selectedType, eventName, attendees }) });
-    toastEl.className = "toast success";
-    toastEl.textContent = `✓ Logged ${attendees} attendee${attendees>1?"s":""} for ${program}`;
+    await fetch(API, { method:"POST", body: JSON.stringify({
+      action:"log", program, eventType:selectedType, eventName,
+      attendees:1, studentName: name
+    })});
+    showToast("success", `✓ Attendance logged for ${name}!`);
+    document.getElementById("inpName").value = "";
     document.getElementById("inpEvent").value = "";
-    document.getElementById("inpCount").value = "1";
     await loadData();
   } catch(e) {
-    toastEl.className = "toast error";
-    toastEl.textContent = "Failed to save. Check connection.";
+    showToast("error","Failed to save. Check connection.");
   }
   btn.disabled = false;
-  btn.innerHTML = '<span id="submitTxt">Log Attendance</span>';
-  setTimeout(() => { toastEl.className = "toast"; }, 4000);
+  btn.innerHTML = '<span id="submitTxt">Log My Attendance</span>';
+}
+function showToast(type, msg) {
+  const t = document.getElementById("toast");
+  t.className = "toast " + type;
+  t.textContent = msg;
+  setTimeout(() => { t.className = "toast"; }, 5000);
 }
 
-/* ═══════════════════════════════════════
-   LEADERBOARD RENDER
-═══════════════════════════════════════ */
+/* ─── LEADERBOARD ─── */
 function computeStandings() {
   const totals = {};
   programs.forEach(p => totals[p] = { intramural:0, student:0, athletic:0 });
@@ -653,19 +695,16 @@ function totalFor(totals, prog, tab) {
 }
 function renderLeaderboard() {
   const totals = computeStandings();
-  const sorted = [...programs].sort((a,b) => totalFor(totals,b,currentTab) - totalFor(totals,a,currentTab));
-  const maxPts = Math.max(1, totalFor(totals, sorted[0], currentTab));
+  const sorted = [...programs].sort((a,b) => totalFor(totals,b,currentTab)-totalFor(totals,a,currentTab));
+  const maxPts = Math.max(1, totalFor(totals,sorted[0],currentTab));
   const lb = document.getElementById("leaderboard");
-  if (maxPts === 0) {
-    lb.innerHTML = '<div class="empty-state">No attendance logged yet — fire it up, Tigers!</div>';
-    updateStats(totals, sorted); return;
-  }
-  lb.innerHTML = sorted.map((prog, i) => {
-    const pts = totalFor(totals, prog, currentTab);
+  if (maxPts===0) { lb.innerHTML='<div class="empty-state">No attendance logged yet — fire it up, Tigers!</div>'; updateStats(totals,sorted); return; }
+  lb.innerHTML = sorted.map((prog,i)=>{
+    const pts = totalFor(totals,prog,currentTab);
     const pct = Math.round((pts/maxPts)*100);
-    const color = PROG_COLORS[programs.indexOf(prog) % PROG_COLORS.length];
+    const color = PROG_COLORS[programs.indexOf(prog)%PROG_COLORS.length];
     const rankCls = i===0?"r1":i===1?"r2":i===2?"r3":"rn";
-    const rowCls = i===0?"top1":i===1?"top2":i===2?"top3":"";
+    const rowCls  = i===0?"top1":i===1?"top2":i===2?"top3":"";
     const rankTxt = i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
     const t = totals[prog];
     return `<div class="prog-row ${rowCls}">
@@ -678,78 +717,71 @@ function renderLeaderboard() {
       <span class="pts-col">${pts.toLocaleString()}</span>
     </div>`;
   }).join("");
-  updateStats(totals, sorted);
+  updateStats(totals,sorted);
 }
-function updateStats(totals, sorted) {
-  const grand = programs.reduce((s,p) => s + totals[p].intramural + totals[p].student + totals[p].athletic, 0);
+function updateStats(totals,sorted) {
+  const grand = programs.reduce((s,p)=>s+totals[p].intramural+totals[p].student+totals[p].athletic,0);
   document.getElementById("sTotalAtt").textContent = grand.toLocaleString();
   document.getElementById("sTotalEvt").textContent = allData.length.toLocaleString();
-  const leader = sorted[0];
-  const lpts = totalFor(totals, leader, currentTab);
+  const leader = sorted[0], lpts = totalFor(totals,leader,currentTab), t = totals[leader];
   document.getElementById("sLeader").textContent = leader;
   document.getElementById("sLeaderPts").textContent = lpts.toLocaleString();
-  const t = totals[leader];
   document.getElementById("sLeaderSub").textContent = `I:${t.intramural}  S:${t.student}  A:${t.athletic}`;
 }
 function renderFeed() {
   const feed = document.getElementById("feedList");
   const recent = [...allData].reverse().slice(0,30);
-  if (!recent.length) { feed.innerHTML = '<div class="empty-state">No events yet — be the first!</div>'; return; }
-  feed.innerHTML = recent.map(r => {
-    const color = TYPE_DOT[(r["EventType"]||"").toLowerCase()] || "#555";
-    const ts = r["Timestamp"] ? new Date(r["Timestamp"]).toLocaleString([],{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}) : "";
+  if (!recent.length) { feed.innerHTML='<div class="empty-state">No events yet — be the first!</div>'; return; }
+  feed.innerHTML = recent.map(r=>{
+    const color = TYPE_DOT[(r["EventType"]||"").toLowerCase()]||"#555";
+    const name = r["StudentName"] ? ` — ${r["StudentName"]}` : "";
     return `<div class="feed-item">
       <div class="feed-dot" style="background:${color};"></div>
       <span class="feed-name">${r["Program"]||"—"}</span>
-      <span class="feed-event">${r["EventName"]||"Event"}</span>
-      <span class="feed-pts">+${parseInt(r["Attendees"])||0}</span>
+      <span class="feed-event">${r["EventName"]||"Event"}${name}</span>
+      <span class="feed-pts">+1</span>
     </div>`;
   }).join("");
 }
 
-/* ═══════════════════════════════════════
-   ADMIN — ENTRIES TABLE
-═══════════════════════════════════════ */
+/* ─── ADMIN ENTRIES TABLE ─── */
 function renderAdminTable() {
   const filterText = (document.getElementById("filterText")?.value||"").toLowerCase();
   const filterType = document.getElementById("filterType")?.value||"";
   const filterProg = document.getElementById("filterProg")?.value||"";
 
-  // Rebuild program filter dropdown
-  const fpSel = document.getElementById("filterProg");
-  const fpCur = fpSel.value;
-  fpSel.innerHTML = '<option value="">All programs</option>';
-  programs.forEach(p => { const o=document.createElement("option"); o.value=o.textContent=p; fpSel.appendChild(o); });
-  fpSel.value = programs.includes(fpCur) ? fpCur : "";
+  // rebuild prog filter
+  const fp = document.getElementById("filterProg");
+  const fpCur = fp.value;
+  fp.innerHTML = '<option value="">All programs</option>';
+  programs.forEach(p=>{ const o=document.createElement("option"); o.value=o.textContent=p; fp.appendChild(o); });
+  fp.value = programs.includes(fpCur)?fpCur:"";
 
-  let filtered = allData.filter((r, idx) => {
-    r._idx = idx;
-    const prog = (r["Program"]||"").toLowerCase();
-    const evnt = (r["EventName"]||"").toLowerCase();
-    const type = (r["EventType"]||"").toLowerCase();
-    if (filterText && !prog.includes(filterText) && !evnt.includes(filterText)) return false;
-    if (filterType && type !== filterType) return false;
-    if (filterProg && r["Program"] !== filterProg) return false;
+  const filtered = allData.filter(r=>{
+    const prog=(r["Program"]||"").toLowerCase(), ev=(r["EventName"]||"").toLowerCase(), ty=(r["EventType"]||"").toLowerCase(), sn=(r["StudentName"]||"").toLowerCase();
+    if (filterText && !prog.includes(filterText) && !ev.includes(filterText) && !sn.includes(filterText)) return false;
+    if (filterType && ty!==filterType) return false;
+    if (filterProg && r["Program"]!==filterProg) return false;
     return true;
   });
 
   document.getElementById("entryCount").textContent = `${filtered.length} of ${allData.length} entries`;
-
   const tbody = document.getElementById("entriesTbody");
-  if (!filtered.length) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No entries match</td></tr>`; return; }
+  if (!filtered.length) { tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No entries match</td></tr>`; return; }
 
-  tbody.innerHTML = filtered.map((r, i) => {
+  tbody.innerHTML = filtered.map(r=>{
     const idx = allData.indexOf(r);
-    const typeLower = (r["EventType"]||"").toLowerCase();
+    const tl = (r["EventType"]||"").toLowerCase();
     const ts = r["Timestamp"] ? new Date(r["Timestamp"]).toLocaleString([],{month:"short",day:"numeric",year:"2-digit",hour:"2-digit",minute:"2-digit"}) : "—";
+    const sn = r["StudentName"]||"—";
     return `
     <tr id="row-${idx}">
       <td class="muted">${idx+1}</td>
       <td class="muted" style="font-size:11px;white-space:nowrap;">${ts}</td>
+      <td class="muted">${sn}</td>
       <td style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;">${r["Program"]||"—"}</td>
-      <td><span class="type-pill ${typeLower}">${typeLower||"—"}</span></td>
+      <td><span class="type-pill ${tl}">${tl||"—"}</span></td>
       <td>${r["EventName"]||"—"}</td>
-      <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gold);">${parseInt(r["Attendees"])||0}</td>
       <td style="text-align:right;white-space:nowrap;">
         <button class="btn btn-ghost btn-sm" onclick="toggleEditRow(${idx})">Edit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteEntry(${idx})">Delete</button>
@@ -758,25 +790,21 @@ function renderAdminTable() {
     <tr class="edit-row" id="editrow-${idx}">
       <td colspan="7">
         <div class="edit-form">
-          <div class="form-group" style="margin:0;">
-            <label>Program</label>
+          <div class="form-group" style="margin:0;"><label>Program</label>
             <select id="ep-prog-${idx}">${programs.map(p=>`<option value="${p}"${p===r["Program"]?" selected":""}>${p}</option>`).join("")}</select>
           </div>
-          <div class="form-group" style="margin:0;">
-            <label>Type</label>
+          <div class="form-group" style="margin:0;"><label>Type</label>
             <select id="ep-type-${idx}">
-              <option value="intramural"${typeLower==="intramural"?" selected":""}>Intramural</option>
-              <option value="student"${typeLower==="student"?" selected":""}>Student Life</option>
-              <option value="athletic"${typeLower==="athletic"?" selected":""}>Athletic</option>
+              <option value="intramural"${tl==="intramural"?" selected":""}>Intramural</option>
+              <option value="student"${tl==="student"?" selected":""}>Student Life</option>
+              <option value="athletic"${tl==="athletic"?" selected":""}>Athletic</option>
             </select>
           </div>
-          <div class="form-group" style="margin:0;">
-            <label>Event Name</label>
+          <div class="form-group" style="margin:0;"><label>Event</label>
             <input type="text" id="ep-evnt-${idx}" value="${r["EventName"]||""}" />
           </div>
-          <div class="form-group" style="margin:0;">
-            <label>Attendees</label>
-            <input type="number" id="ep-attn-${idx}" value="${parseInt(r["Attendees"])||0}" min="0" />
+          <div class="form-group" style="margin:0;"><label>Student</label>
+            <input type="text" id="ep-snam-${idx}" value="${r["StudentName"]||""}" />
           </div>
           <div style="display:flex;gap:6px;align-items:flex-end;padding-bottom:1px;">
             <button class="btn btn-gold btn-sm" onclick="saveEdit(${idx})">Save</button>
@@ -789,142 +817,132 @@ function renderAdminTable() {
 }
 
 function toggleEditRow(idx) {
-  const er = document.getElementById("editrow-" + idx);
-  er.style.display = er.style.display === "table-row" ? "none" : "table-row";
+  const er = document.getElementById("editrow-"+idx);
+  er.style.display = er.style.display==="table-row" ? "none" : "table-row";
 }
-
 function saveEdit(idx) {
   const prog = document.getElementById(`ep-prog-${idx}`).value;
   const type = document.getElementById(`ep-type-${idx}`).value;
-  const evnt = document.getElementById(`ep-evnt-${idx}`).value.trim() || "Event";
-  const attn = Math.max(0, parseInt(document.getElementById(`ep-attn-${idx}`).value)||0);
-  allData[idx]["Program"] = prog;
-  allData[idx]["EventType"] = type;
-  allData[idx]["EventName"] = evnt;
-  allData[idx]["Attendees"] = attn;
-  // Push update to sheet
-  fetch(API, { method:"POST", body: JSON.stringify({ action:"updateRow", rowIndex: idx+2, program:prog, eventType:type, eventName:evnt, attendees:attn }) })
-    .catch(()=>{});
-  showAdminStatus("entriesStatus", "✓ Entry updated.", "ok");
-  renderAdminTable();
-  renderLeaderboard();
-  renderFeed();
+  const evnt = document.getElementById(`ep-evnt-${idx}`).value.trim()||"Event";
+  const snam = document.getElementById(`ep-snam-${idx}`).value.trim();
+  allData[idx]["Program"]=prog; allData[idx]["EventType"]=type;
+  allData[idx]["EventName"]=evnt; allData[idx]["StudentName"]=snam;
+  fetch(API,{method:"POST",body:JSON.stringify({action:"updateRow",rowIndex:idx+2,program:prog,eventType:type,eventName:evnt,attendees:1,studentName:snam})}).catch(()=>{});
+  showAdminStatus("entriesStatus","✓ Entry updated.","ok");
+  renderAdminTable(); renderLeaderboard(); renderFeed();
 }
-
 function deleteEntry(idx) {
   if (!confirm(`Delete entry: ${allData[idx]["Program"]} — ${allData[idx]["EventName"]}?`)) return;
-  // Push delete to sheet
-  fetch(API, { method:"POST", body: JSON.stringify({ action:"deleteRow", rowIndex: idx+2 }) }).catch(()=>{});
-  allData.splice(idx, 1);
-  showAdminStatus("entriesStatus", "✓ Entry deleted.", "ok");
-  renderAdminTable();
-  renderLeaderboard();
-  renderFeed();
+  fetch(API,{method:"POST",body:JSON.stringify({action:"deleteRow",rowIndex:idx+2})}).catch(()=>{});
+  allData.splice(idx,1);
+  showAdminStatus("entriesStatus","✓ Entry deleted.","ok");
+  renderAdminTable(); renderLeaderboard(); renderFeed();
 }
 
-/* ═══════════════════════════════════════
-   ADMIN — PROGRAMS
-═══════════════════════════════════════ */
+/* ─── ADD ENTRY MODAL ─── */
+function openAddModal() {
+  rebuildAdminProgSelect();
+  document.getElementById("ae-name").value="";
+  document.getElementById("ae-event").value="";
+  document.getElementById("ae-type").value="intramural";
+  document.getElementById("aeStatus").className="status-msg";
+  document.getElementById("addModal").classList.add("open");
+}
+function closeAddModal() { document.getElementById("addModal").classList.remove("open"); }
+async function submitAddEntry() {
+  const name  = document.getElementById("ae-name").value.trim();
+  const prog  = document.getElementById("ae-prog").value;
+  const type  = document.getElementById("ae-type").value;
+  const evnt  = document.getElementById("ae-event").value.trim();
+  if (!name||!evnt) { showStatus(document.getElementById("aeStatus"),"Name and event are required.","err"); return; }
+  const submitBtn = document.getElementById("ae-submit");
+  submitBtn.disabled=true; submitBtn.textContent="Saving…";
+  try {
+    await fetch(API,{method:"POST",body:JSON.stringify({action:"log",program:prog,eventType:type,eventName:evnt,attendees:1,studentName:name})});
+    await loadData();
+    closeAddModal();
+    showAdminStatus("entriesStatus",`✓ Entry added for ${name}.`,"ok");
+  } catch(e) {
+    showStatus(document.getElementById("aeStatus"),"Failed to save. Check connection.","err");
+  }
+  submitBtn.disabled=false; submitBtn.textContent="Add Entry";
+}
+// Close modal on backdrop click
+document.getElementById("addModal").addEventListener("click",function(e){ if(e.target===this) closeAddModal(); });
+
+/* ─── ADMIN PROGRAMS ─── */
 function renderAdminProgList() {
-  const list = document.getElementById("adminProgList");
-  list.innerHTML = programs.map((p, i) => `
+  document.getElementById("adminProgList").innerHTML = programs.map((p,i)=>`
     <div class="prog-item" id="progitem-${i}">
-      <div class="prog-item-name" id="progname-${i}">${p}</div>
-      <button class="btn btn-ghost btn-sm" onclick="startRenameProgram(${i})">Rename</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteProgram(${i})">Remove</button>
+      <div class="prog-item-name">${p}</div>
+      <button class="btn btn-ghost btn-sm" onclick="startRename(${i})">Rename</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteProg(${i})">Remove</button>
     </div>
     <div id="progedit-${i}" style="display:none;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:10px;margin-top:-4px;margin-bottom:2px;">
-      <div style="display:flex;gap:8px;align-items:center;">
+      <div style="display:flex;gap:8px;">
         <input type="text" id="proginput-${i}" value="${p}" style="flex:1;" />
-        <button class="btn btn-gold btn-sm" onclick="saveRenameProgram(${i})">Save</button>
-        <button class="btn btn-ghost btn-sm" onclick="cancelRenameProgram(${i})">Cancel</button>
+        <button class="btn btn-gold btn-sm" onclick="saveRename(${i})">Save</button>
+        <button class="btn btn-ghost btn-sm" onclick="cancelRename(${i})">Cancel</button>
       </div>
     </div>`
   ).join("");
 }
-
-function startRenameProgram(i) {
-  document.getElementById("progedit-" + i).style.display = "block";
-  document.getElementById("proginput-" + i).focus();
-}
-function cancelRenameProgram(i) {
-  document.getElementById("progedit-" + i).style.display = "none";
-}
-function saveRenameProgram(i) {
-  const val = document.getElementById("proginput-" + i).value.trim();
+function startRename(i) { document.getElementById("progedit-"+i).style.display="block"; document.getElementById("proginput-"+i).focus(); }
+function cancelRename(i) { document.getElementById("progedit-"+i).style.display="none"; }
+function saveRename(i) {
+  const val = document.getElementById("proginput-"+i).value.trim();
   if (!val) return;
-  programs[i] = val;
-  renderAdminProgList();
-  rebuildProgramSelect();
-  showAdminStatus("programsStatus", `✓ Renamed to "${val}".`, "ok");
+  programs[i]=val; renderAdminProgList(); rebuildProgramSelect(); rebuildAdminProgSelect();
+  showAdminStatus("programsStatus",`✓ Renamed to "${val}".`,"ok");
 }
-function deleteProgram(i) {
-  if (!confirm(`Remove "${programs[i]}" from the program list?`)) return;
-  programs.splice(i, 1);
-  renderAdminProgList();
-  rebuildProgramSelect();
-  showAdminStatus("programsStatus", "✓ Program removed.", "ok");
+function deleteProg(i) {
+  if (!confirm(`Remove "${programs[i]}"?`)) return;
+  programs.splice(i,1); renderAdminProgList(); rebuildProgramSelect(); rebuildAdminProgSelect();
+  showAdminStatus("programsStatus","✓ Program removed.","ok");
 }
 function addProgram() {
   const val = document.getElementById("newProgInput").value.trim();
   if (!val) return;
   if (programs.includes(val)) { showAdminStatus("programsStatus","Program already exists.","err"); return; }
-  programs.push(val);
-  document.getElementById("newProgInput").value = "";
-  renderAdminProgList();
-  rebuildProgramSelect();
-  showAdminStatus("programsStatus", `✓ "${val}" added.`, "ok");
+  programs.push(val); document.getElementById("newProgInput").value="";
+  renderAdminProgList(); rebuildProgramSelect(); rebuildAdminProgSelect();
+  showAdminStatus("programsStatus",`✓ "${val}" added.`,"ok");
 }
 
-/* ═══════════════════════════════════════
-   ADMIN — SETTINGS
-═══════════════════════════════════════ */
+/* ─── SETTINGS ─── */
 function saveSeason() {
   const val = document.getElementById("seasonInput").value.trim();
   if (!val) return;
-  SEASON_LABEL = val;
-  document.getElementById("seasonBadge").textContent = "★ " + SEASON_LABEL;
-  showAdminStatus("settingsStatus", "✓ Season label updated.", "ok");
+  SEASON_LABEL=val; document.getElementById("seasonBadge").textContent="★ "+SEASON_LABEL;
+  showAdminStatus("settingsStatus","✓ Season label updated.","ok");
 }
 function changePassword() {
-  const p1 = document.getElementById("newPw1").value;
-  const p2 = document.getElementById("newPw2").value;
-  const st = document.getElementById("pwStatus");
+  const p1=document.getElementById("newPw1").value, p2=document.getElementById("newPw2").value;
+  const st=document.getElementById("pwStatus");
   if (!p1) { showStatus(st,"Password cannot be empty.","err"); return; }
-  if (p1 !== p2) { showStatus(st,"Passwords do not match.","err"); return; }
-  ADMIN_PASSWORD = p1;
-  document.getElementById("newPw1").value = "";
-  document.getElementById("newPw2").value = "";
-  showStatus(st,"✓ Password updated for this session. Re-upload your HTML file with the new password baked in to make it permanent.","ok");
+  if (p1!==p2) { showStatus(st,"Passwords do not match.","err"); return; }
+  ADMIN_PASSWORD=p1; document.getElementById("newPw1").value=""; document.getElementById("newPw2").value="";
+  showStatus(st,"✓ Updated for this session. Edit the HTML file and re-upload to GitHub to make it permanent.","ok");
 }
 function confirmReset() {
-  if (!confirm("Clear the local data cache? This won't delete anything from Google Sheets.")) return;
-  allData = [];
-  renderLeaderboard();
-  renderFeed();
-  showAdminStatus("settingsStatus","✓ Local cache cleared. Click Refresh on the leaderboard to reload from Sheets.","ok");
+  if (!confirm("Clear local cache?")) return;
+  allData=[]; renderLeaderboard(); renderFeed();
+  showAdminStatus("settingsStatus","✓ Cache cleared. Click Refresh to reload from Sheets.","ok");
 }
 
-/* ═══════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════ */
-function showAdminStatus(id, msg, type) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = "status-msg " + type;
-  setTimeout(() => { el.className = "status-msg"; }, 5000);
+/* ─── HELPERS ─── */
+function showAdminStatus(id,msg,type) {
+  const el=document.getElementById(id); el.textContent=msg; el.className="status-msg "+type;
+  setTimeout(()=>{ el.className="status-msg"; },5000);
 }
-function showStatus(el, msg, type) {
-  el.textContent = msg;
-  el.className = "status-msg " + type;
-  setTimeout(() => { el.className = "status-msg"; }, 6000);
+function showStatus(el,msg,type) {
+  el.textContent=msg; el.className="status-msg "+type;
+  setTimeout(()=>{ el.className="status-msg"; },6000);
 }
 
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
+/* ─── INIT ─── */
 loadData();
-setInterval(loadData, 60000);
+setInterval(loadData,60000);
 </script>
 </body>
 </html>
