@@ -18,6 +18,28 @@
   --green:#2ECC8A; --blue:#4A8CF7;
   --radius:8px; --radius-lg:12px;
 }
+
+/* LIGHT MODE */
+body.light {
+  --bg:#f4f4f2; --bg2:#ffffff; --bg3:#eeede9; --bg4:#e2e1dc;
+  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.15);
+  --text:#1a1a1a; --text2:#555; --text3:#999;
+  --gold-dim:rgba(251,190,0,0.18); --gold-dim2:rgba(251,190,0,0.3);
+  --crimson-light:rgba(139,14,4,0.1);
+}
+body.light .header { background:#1a1a1a; }
+body.light .header-stripe { background:var(--crimson); }
+body.light .login-card { background:#fff; }
+body.light .admin-body { background:#fff; }
+body.light .modal { background:#fff; }
+body.light select option { background:#fff; color:#1a1a1a; }
+body.light .setting-card { background:var(--bg3); }
+body.light .admin-nav { background:var(--bg2); }
+body.light table tbody tr:hover { background:var(--bg3); }
+body.light .prog-row:hover { background:var(--bg3); }
+body.light .edit-row { background:var(--bg3); }
+body.light .feed-list::-webkit-scrollbar-thumb { background:var(--bg4); }
+body.light .panel-header { background:var(--bg3); }
 body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; line-height:1.5; }
 
 /* HEADER */
@@ -27,11 +49,11 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .logo-area { display:flex; align-items:center; gap:16px; }
 .paw { font-size:2.6rem; line-height:1; filter:drop-shadow(0 0 12px rgba(251,190,0,0.4)); cursor:default; user-select:none; }
 .school-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
-.tracker-name { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color:var(--text); line-height:1; }
+.tracker-name { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:900; text-transform:uppercase; letter-spacing:.04em; color:#f5f5f5; line-height:1; }
 .tracker-name span { color:var(--gold); }
 .header-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
 .legend { display:flex; gap:12px; flex-wrap:wrap; }
-.leg-item { display:flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text2); }
+.leg-item { display:flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
 .leg-dot { width:8px; height:8px; border-radius:2px; }
 .leg-dot.intra { background:var(--gold); } .leg-dot.student { background:var(--blue); } .leg-dot.athletic { background:var(--crimson); }
 .season-badge { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); background:var(--gold-dim); border:1px solid rgba(251,190,0,0.3); padding:3px 10px; border-radius:4px; }
@@ -90,7 +112,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 }
 .form-group select:focus, .form-group input:focus, .form-group textarea:focus { border-color:var(--gold); }
 .form-group textarea { width:100%; background:var(--bg3); border:1px solid var(--border2); border-radius:var(--radius); color:var(--text); padding:9px 12px; font-family:'Barlow',sans-serif; font-size:13px; outline:none; transition:border-color .15s; }
-select option { background:#222; }
+select option { background:var(--bg3); }
 .no-events-msg { font-size:12px; color:var(--text3); padding:10px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.05em; text-transform:uppercase; }
 
 .submit-btn { width:100%; padding:12px; background:var(--gold); border:none; border-radius:var(--radius); color:#111; font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; cursor:pointer; margin-top:4px; transition:background .15s, transform .1s; display:flex; align-items:center; justify-content:center; gap:6px; }
@@ -118,6 +140,12 @@ select option { background:#222; }
 .loading-bar { height:2px; background:var(--gold); width:0%; transition:width .4s ease; position:fixed; top:0; left:0; z-index:9999; }
 .spinner { width:16px; height:16px; border:2px solid rgba(17,17,17,0.3); border-top-color:#111; border-radius:50%; animation:spin .7s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
+
+/* THEME TOGGLE */
+.theme-toggle { background:transparent; border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:4px 10px; cursor:pointer; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,0.6); transition:all .2s; display:flex; align-items:center; gap:5px; white-space:nowrap; }
+.theme-toggle:hover { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.9); }
+body.light .theme-toggle { border-color:rgba(255,255,255,0.25); color:rgba(255,255,255,0.7); }
+body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; }
 
 /* FOOTER */
 .footer { text-align:center; padding:1.5rem 2rem 2rem; color:var(--text3); font-size:11px; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.1em; border-top:1px solid var(--border); max-width:1120px; margin:0 auto; }
@@ -280,7 +308,10 @@ td.muted { color:var(--text2); font-size:12px; }
         </div>
       </div>
       <div class="header-right">
-        <span class="season-badge" id="seasonBadge">&#9733; 2026–2027 Season</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="season-badge" id="seasonBadge">&#9733; 2026–2027 Season</span>
+          <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle light/dark mode">🌙 Dark</button>
+        </div>
         <div class="legend">
           <div class="leg-item"><div class="leg-dot intra"></div> Intramural</div>
           <div class="leg-item"><div class="leg-dot student"></div> Student Life</div>
@@ -410,7 +441,8 @@ td.muted { color:var(--text2); font-size:12px; }
           <div class="tracker-name">Tiger Pride <span>Admin</span></div>
         </div>
       </div>
-      <div style="display:flex;gap:8px;">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtnAdmin" title="Toggle light/dark mode">🌙 Dark</button>
         <button class="btn btn-ghost btn-sm" onclick="showPublic()">← Leaderboard</button>
         <button class="btn btn-danger btn-sm" onclick="doLogout()">Sign Out</button>
       </div>
@@ -1356,6 +1388,29 @@ function showAdminStatus(id,msg,type){
 }
 function showStatus(el,msg,type){el.textContent=msg;el.className="status-msg "+type;setTimeout(()=>el.className="status-msg",6000);}
 function showModalStatus(el,msg,type){el.textContent=msg;el.className="modal-status "+type;setTimeout(()=>el.className="modal-status",5000);}
+
+/* ══════════════════════════════════════════
+   THEME TOGGLE
+══════════════════════════════════════════ */
+function applyTheme(mode) {
+  const isLight = mode === 'light';
+  document.body.classList.toggle('light', isLight);
+  const label = isLight ? '🌙 Dark' : '☀️ Light';
+  document.querySelectorAll('#themeBtn, #themeBtnAdmin').forEach(btn => {
+    if(btn) btn.textContent = label;
+  });
+  try { localStorage.setItem('fhnw-theme', mode); } catch(e){}
+}
+function toggleTheme() {
+  const isLight = document.body.classList.contains('light');
+  applyTheme(isLight ? 'dark' : 'light');
+}
+// Load saved preference on startup
+(function(){
+  let saved = 'dark';
+  try { saved = localStorage.getItem('fhnw-theme') || 'dark'; } catch(e){}
+  applyTheme(saved);
+})();
 
 /* ══════════════════════════════════════════
    INIT — auto-refresh every 60s, re-evaluate event statuses every 30s
