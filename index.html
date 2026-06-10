@@ -580,45 +580,76 @@ let editingEventId = null;
    We parse them with local time — never UTC — to avoid the off-by-one-day bug.
 ══════════════════════════════════════════ */
 
-// Parse "YYYY-MM-DDTHH:MM" as LOCAL time → Date object
+// Mountain Time helpers
+// Stored format: "YYYY-MM-DDTHH:MM" — treated as Mountain Time always,
+// regardless of what device/timezone the browser is on.
+const MT_ZONE = "America/Denver";
+
+// Convert a "YYYY-MM-DDTHH:MM" Mountain Time string → UTC Date object
 function parseLocalDT(str) {
   if (!str) return null;
+  // Append a fake UTC offset so the browser interprets it as MT
+  // We do this by formatting a reference time in MT and shifting accordingly.
+  // Simplest reliable approach: use Intl to find current MT offset, apply it.
   const [datePart, timePart = "00:00"] = str.split("T");
-  const [y,m,d] = datePart.split("-").map(Number);
-  const [hh,mm] = timePart.split(":").map(Number);
-  return new Date(y, m-1, d, hh, mm);
+  const [y,mo,d]  = datePart.split("-").map(Number);
+  const [hh,mm]   = timePart.split(":").map(Number);
+  // Build a UTC candidate and find the MT offset at that moment
+  const utcGuess  = Date.UTC(y, mo-1, d, hh, mm);
+  const mtOffset  = getMTOffsetMs(new Date(utcGuess));
+  return new Date(utcGuess - mtOffset);
 }
 
-// Format a Date for display: "Jun 5, 2026 at 8:00 AM"
+// Get the Mountain Time UTC offset in milliseconds for a given Date
+function getMTOffsetMs(date) {
+  // "America/Denver" is UTC-7 MDT or UTC-6 MST ... wait, MT is UTC-7 MDT / UTC-6 MST
+  // We use the Intl trick: format the date in MT and compare to UTC.
+  const mtStr  = new Intl.DateTimeFormat("en-US", {
+    timeZone: MT_ZONE,
+    year:"numeric",month:"2-digit",day:"2-digit",
+    hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
+  }).format(date);
+  // mtStr looks like "06/09/2026, 10:27:00"
+  const [datePt, timePt] = mtStr.split(", ");
+  const [mm2,dd2,yyyy2]  = datePt.split("/").map(Number);
+  const [hh2,mi2,ss2]    = timePt.split(":").map(Number);
+  const mtAsUtc = Date.UTC(yyyy2, mm2-1, dd2, hh2, mi2, ss2);
+  return date.getTime() - mtAsUtc; // negative = MT is behind UTC
+}
+
+// Get current time as a Date, but evaluated against MT
+function nowMT() { return new Date(); }
+
+// Format a stored "YYYY-MM-DDTHH:MM" for display in MT: "Jun 5, 2026 at 8:00 AM MT"
 function fmtDT(str) {
   if (!str) return "—";
   const dt = parseLocalDT(str);
   if (!dt || isNaN(dt)) return "—";
-  return dt.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})
+  return dt.toLocaleDateString("en-US",{timeZone:MT_ZONE,month:"short",day:"numeric",year:"numeric"})
     + " at "
-    + dt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+    + dt.toLocaleTimeString("en-US",{timeZone:MT_ZONE,hour:"numeric",minute:"2-digit"})
+    + " MT";
 }
 
-// Short date only: "Jun 5"
+// Short date only in MT: "Jun 5"
 function fmtDateShort(str) {
   if (!str) return "—";
   const dt = parseLocalDT(str);
   if (!dt || isNaN(dt)) return "—";
-  return dt.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  return dt.toLocaleDateString("en-US",{timeZone:MT_ZONE,month:"short",day:"numeric"});
 }
 
-// Compute the live status of an event right now
+// Compute the live status of an event right now (compared in MT)
 function liveStatus(ev) {
   if (ev.statusOverride === "open")   return "open";
   if (ev.statusOverride === "closed") return "closed";
-  // auto mode
-  const now = new Date();
+  const now    = nowMT();
   const opens  = ev.openDT  ? parseLocalDT(ev.openDT)  : null;
   const closes = ev.closeDT ? parseLocalDT(ev.closeDT) : null;
   if (opens && now < opens)   return "scheduled";
   if (closes && now > closes) return "ended";
-  if (opens || closes) return "open";
-  return "closed"; // no schedule, no override → closed
+  if (opens || closes)        return "open";
+  return "closed";
 }
 
 // Human-readable status label
@@ -985,7 +1016,7 @@ function renderEntriesTable(){
   tbody.innerHTML=filtered.map(r=>{
     const idx=allData.indexOf(r);
     const tl=(r["EventType"]||"").toLowerCase();
-    const ts=r["Timestamp"]?new Date(r["Timestamp"]).toLocaleString([],{month:"short",day:"numeric",year:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
+    const ts=r["Timestamp"]?new Date(r["Timestamp"]).toLocaleString("en-US",{timeZone:MT_ZONE,month:"short",day:"numeric",year:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
     return `
     <tr id="row-${idx}">
       <td class="muted">${idx+1}</td>
