@@ -33,9 +33,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .legend { display:flex; gap:12px; flex-wrap:wrap; }
 .leg-item { display:flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text2); }
 .leg-dot { width:8px; height:8px; border-radius:2px; }
-.leg-dot.intra { background:var(--gold); }
-.leg-dot.student { background:var(--blue); }
-.leg-dot.athletic { background:var(--crimson); }
+.leg-dot.intra { background:var(--gold); } .leg-dot.student { background:var(--blue); } .leg-dot.athletic { background:var(--crimson); }
 .season-badge { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); background:var(--gold-dim); border:1px solid rgba(251,190,0,0.3); padding:3px 10px; border-radius:4px; }
 
 /* STATS */
@@ -92,9 +90,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 }
 .form-group select:focus, .form-group input:focus { border-color:var(--gold); }
 select option { background:#222; }
-.form-group select:disabled { opacity:.4; cursor:not-allowed; }
-
-.no-events-msg { font-size:12px; color:var(--text3); font-style:italic; padding:8px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.05em; text-transform:uppercase; }
+.no-events-msg { font-size:12px; color:var(--text3); padding:10px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.05em; text-transform:uppercase; }
 
 .submit-btn { width:100%; padding:12px; background:var(--gold); border:none; border-radius:var(--radius); color:#111; font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; cursor:pointer; margin-top:4px; transition:background .15s, transform .1s; display:flex; align-items:center; justify-content:center; gap:6px; }
 .submit-btn:hover { background:#e8ae00; }
@@ -120,7 +116,6 @@ select option { background:#222; }
 .refresh-btn:hover { background:var(--bg4); color:var(--text); }
 .loading-bar { height:2px; background:var(--gold); width:0%; transition:width .4s ease; position:fixed; top:0; left:0; z-index:9999; }
 .spinner { width:16px; height:16px; border:2px solid rgba(17,17,17,0.3); border-top-color:#111; border-radius:50%; animation:spin .7s linear infinite; }
-.spinner-dark { width:16px; height:16px; border:2px solid rgba(255,255,255,0.15); border-top-color:var(--gold); border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
 /* FOOTER */
@@ -131,7 +126,7 @@ select option { background:#222; }
 .tiger-hint { position:fixed; bottom:18px; right:18px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--text3); opacity:0; transition:opacity .5s; pointer-events:none; }
 .tiger-hint.show { opacity:1; }
 
-/* ── ADMIN LOGIN ── */
+/* ── LOGIN ── */
 .login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem; }
 .login-card { background:var(--bg2); border:1px solid rgba(251,190,0,0.3); border-top:3px solid var(--gold); border-radius:var(--radius-lg); padding:2rem; width:100%; max-width:340px; }
 .login-card h2 { font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:900; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:4px; }
@@ -147,7 +142,7 @@ select option { background:#222; }
 .admin-section { display:none; }
 .admin-section.active { display:block; }
 .section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--text3); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
-.section-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.section-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:8px; flex-wrap:wrap; }
 .section-row .section-label { margin:0; border:none; padding:0; }
 
 /* BTN */
@@ -176,9 +171,11 @@ td.muted { color:var(--text2); font-size:12px; }
 .type-pill.intramural { background:var(--gold-dim); color:var(--gold); }
 .type-pill.student    { background:rgba(74,140,247,0.15); color:#82AEFF; }
 .type-pill.athletic   { background:var(--crimson-light); color:#ff6b60; }
-.status-pill { display:inline-block; padding:2px 8px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; }
-.status-pill.open   { background:rgba(46,204,138,0.15); color:#5ADBA4; }
-.status-pill.closed { background:var(--bg4); color:var(--text3); }
+.status-pill { display:inline-block; padding:2px 8px; border-radius:4px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; white-space:nowrap; }
+.status-pill.open      { background:rgba(46,204,138,0.15); color:#5ADBA4; }
+.status-pill.scheduled { background:rgba(74,140,247,0.15); color:#82AEFF; }
+.status-pill.closed    { background:var(--bg4); color:var(--text3); }
+.status-pill.ended     { background:rgba(232,69,69,0.1); color:#f07070; }
 .edit-row { display:none; background:var(--bg3); }
 .edit-row td { padding:12px 10px; }
 
@@ -214,12 +211,23 @@ td.muted { color:var(--text2); font-size:12px; }
 /* MODAL */
 .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center; padding:1rem; }
 .modal-backdrop.open { display:flex; }
-.modal { background:var(--bg2); border:1px solid rgba(251,190,0,0.3); border-top:3px solid var(--gold); border-radius:var(--radius-lg); padding:1.5rem; width:100%; max-width:440px; max-height:90vh; overflow-y:auto; }
+.modal { background:var(--bg2); border:1px solid rgba(251,190,0,0.3); border-top:3px solid var(--gold); border-radius:var(--radius-lg); padding:1.5rem; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; }
 .modal h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold); margin-bottom:1rem; }
 .modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:1rem; }
 .modal-status { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:6px 12px; border-radius:var(--radius); margin-top:8px; display:none; line-height:1.4; }
 .modal-status.ok  { background:rgba(46,204,138,0.12); border:1px solid rgba(46,204,138,0.3); color:#5ADBA4; display:block; }
 .modal-status.err { background:rgba(232,69,69,0.12);  border:1px solid rgba(232,69,69,0.3);  color:#f07070; display:block; }
+
+/* SCHEDULE SECTION */
+.schedule-box { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; margin-top:4px; }
+.schedule-box .schedule-title { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text3); margin-bottom:10px; }
+.dt-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.schedule-note { font-size:11px; color:var(--text3); margin-top:8px; font-style:italic; line-height:1.5; }
+
+/* COUNTDOWN */
+.countdown-chip { display:inline-flex; align-items:center; gap:5px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:4px; }
+.countdown-chip.opens-soon { background:rgba(74,140,247,0.15); color:#82AEFF; }
+.countdown-chip.closes-soon { background:rgba(251,190,0,0.15); color:var(--gold); }
 </style>
 </head>
 <body>
@@ -260,7 +268,6 @@ td.muted { color:var(--text2); font-size:12px; }
   </div>
 
   <div class="main">
-    <!-- LEADERBOARD -->
     <div>
       <div class="panel">
         <div class="panel-header">
@@ -279,7 +286,6 @@ td.muted { color:var(--text2); font-size:12px; }
       </div>
     </div>
 
-    <!-- LOG FORM -->
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
       <div class="panel">
         <div class="panel-header"><h2>Log My Attendance</h2></div>
@@ -292,7 +298,7 @@ td.muted { color:var(--text2); font-size:12px; }
             <label>Your Program</label>
             <select id="selProgram"></select>
           </div>
-          <div class="form-group" id="eventGroup">
+          <div class="form-group">
             <label>Select Event</label>
             <div id="eventDropdownWrap"></div>
           </div>
@@ -374,22 +380,25 @@ td.muted { color:var(--text2); font-size:12px; }
       </div>
       <div class="admin-body">
 
-        <!-- ── EVENTS ── -->
+        <!-- EVENTS -->
         <div class="admin-section active" id="sec-events">
           <div class="section-row">
-            <div class="section-label">Manage Events — Students can only log attendance for Open events</div>
+            <div class="section-label">Manage Events</div>
             <button class="btn btn-gold btn-sm" onclick="openEventModal()">+ Create Event</button>
           </div>
+          <p style="font-size:12px;color:var(--text3);margin-bottom:12px;line-height:1.6;">Set a schedule window and events open/close automatically. Or manually override the status anytime.</p>
           <div class="status-msg" id="eventsStatus"></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Event Name</th><th>Type</th><th>Date</th><th>Status</th><th>Submissions</th><th style="text-align:right;">Actions</th></tr></thead>
+              <thead><tr>
+                <th>Event</th><th>Type</th><th>Opens</th><th>Closes</th><th>Status</th><th>Entries</th><th style="text-align:right;">Actions</th>
+              </tr></thead>
               <tbody id="eventsTbody"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ── ENTRIES ── -->
+        <!-- ENTRIES -->
         <div class="admin-section" id="sec-entries">
           <div class="section-row">
             <div class="section-label">All Logged Entries</div>
@@ -415,7 +424,7 @@ td.muted { color:var(--text2); font-size:12px; }
           </div>
         </div>
 
-        <!-- ── PROGRAMS ── -->
+        <!-- PROGRAMS -->
         <div class="admin-section" id="sec-programs">
           <div class="section-label">Manage Programs</div>
           <div class="status-msg" id="programsStatus"></div>
@@ -426,7 +435,7 @@ td.muted { color:var(--text2); font-size:12px; }
           </div>
         </div>
 
-        <!-- ── SETTINGS ── -->
+        <!-- SETTINGS -->
         <div class="admin-section" id="sec-settings">
           <div class="section-label">Site Settings</div>
           <div class="status-msg" id="settingsStatus"></div>
@@ -456,11 +465,15 @@ td.muted { color:var(--text2); font-size:12px; }
 </div>
 
 
-<!-- ══════════════════ CREATE EVENT MODAL ══════════════════ -->
+<!-- ══════════════════ CREATE/EDIT EVENT MODAL ══════════════════ -->
 <div class="modal-backdrop" id="eventModal">
   <div class="modal">
     <h3 id="eventModalTitle">Create Event</h3>
-    <div class="form-group"><label>Event Name</label><input type="text" id="ev-name" placeholder="e.g. Fall Basketball Tournament" /></div>
+
+    <div class="form-group">
+      <label>Event Name</label>
+      <input type="text" id="ev-name" placeholder="e.g. Fall Basketball Tournament" />
+    </div>
     <div class="form-group">
       <label>Event Type</label>
       <select id="ev-type">
@@ -469,14 +482,41 @@ td.muted { color:var(--text2); font-size:12px; }
         <option value="athletic">Athletic</option>
       </select>
     </div>
-    <div class="form-group"><label>Date</label><input type="date" id="ev-date" /></div>
-    <div class="form-group">
-      <label>Status</label>
+
+    <div class="schedule-box">
+      <div class="schedule-title">📅 Attendance Window — when students can log in</div>
+      <div class="dt-row">
+        <div class="form-group" style="margin:0;">
+          <label>Opens — Date</label>
+          <input type="date" id="ev-open-date" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Opens — Time</label>
+          <input type="time" id="ev-open-time" value="08:00" />
+        </div>
+      </div>
+      <div class="dt-row" style="margin-top:8px;">
+        <div class="form-group" style="margin:0;">
+          <label>Closes — Date</label>
+          <input type="date" id="ev-close-date" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Closes — Time</label>
+          <input type="time" id="ev-close-time" value="23:59" />
+        </div>
+      </div>
+      <p class="schedule-note">Leave blank to control the status manually. Times are your local time (Central).</p>
+    </div>
+
+    <div class="form-group" style="margin-top:10px;">
+      <label>Status Override</label>
       <select id="ev-status">
-        <option value="open">Open — students can log attendance</option>
-        <option value="closed">Closed — hidden from students</option>
+        <option value="auto">Auto — follow the schedule above</option>
+        <option value="open">Force Open — ignore schedule</option>
+        <option value="closed">Force Closed — ignore schedule</option>
       </select>
     </div>
+
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeEventModal()">Cancel</button>
       <button class="btn btn-gold" id="evSubmitBtn" onclick="saveEvent()">Save Event</button>
@@ -492,12 +532,7 @@ td.muted { color:var(--text2); font-size:12px; }
     <h3>Add Entry Manually</h3>
     <div class="form-group"><label>Student Name</label><input type="text" id="ae-name" placeholder="First and Last Name" /></div>
     <div class="form-group"><label>Program</label><select id="ae-prog"></select></div>
-    <div class="form-group">
-      <label>Event</label>
-      <select id="ae-event">
-        <option value="">— Select event —</option>
-      </select>
-    </div>
+    <div class="form-group"><label>Event</label><select id="ae-event"><option value="">— Select event —</option></select></div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeAddEntryModal()">Cancel</button>
       <button class="btn btn-gold" id="aeSubmitBtn" onclick="submitAddEntry()">Add Entry</button>
@@ -532,207 +567,241 @@ const TYPE_DOT = { intramural:"#fbbe00", student:"#4A8CF7", athletic:"#c01510" }
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-let allData    = [];   // attendance entries from sheet
-let events     = [];   // event objects: {id, name, type, date, status}
-let programs   = [...DEFAULT_PROGRAMS];
+let allData  = [];
+let events   = [];
+let programs = [...DEFAULT_PROGRAMS];
 let currentTab = "all";
 let isAdmin    = false;
-let editingEventId = null;  // null = creating new, string = editing existing
+let editingEventId = null;
+
+/* ══════════════════════════════════════════
+   DATE / TIME HELPERS
+   All datetimes stored as "YYYY-MM-DDTHH:MM" local strings.
+   We parse them with local time — never UTC — to avoid the off-by-one-day bug.
+══════════════════════════════════════════ */
+
+// Parse "YYYY-MM-DDTHH:MM" as LOCAL time → Date object
+function parseLocalDT(str) {
+  if (!str) return null;
+  const [datePart, timePart = "00:00"] = str.split("T");
+  const [y,m,d] = datePart.split("-").map(Number);
+  const [hh,mm] = timePart.split(":").map(Number);
+  return new Date(y, m-1, d, hh, mm);
+}
+
+// Format a Date for display: "Jun 5, 2026 at 8:00 AM"
+function fmtDT(str) {
+  if (!str) return "—";
+  const dt = parseLocalDT(str);
+  if (!dt || isNaN(dt)) return "—";
+  return dt.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})
+    + " at "
+    + dt.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+}
+
+// Short date only: "Jun 5"
+function fmtDateShort(str) {
+  if (!str) return "—";
+  const dt = parseLocalDT(str);
+  if (!dt || isNaN(dt)) return "—";
+  return dt.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+}
+
+// Compute the live status of an event right now
+function liveStatus(ev) {
+  if (ev.statusOverride === "open")   return "open";
+  if (ev.statusOverride === "closed") return "closed";
+  // auto mode
+  const now = new Date();
+  const opens  = ev.openDT  ? parseLocalDT(ev.openDT)  : null;
+  const closes = ev.closeDT ? parseLocalDT(ev.closeDT) : null;
+  if (opens && now < opens)   return "scheduled";
+  if (closes && now > closes) return "ended";
+  if (opens || closes) return "open";
+  return "closed"; // no schedule, no override → closed
+}
+
+// Human-readable status label
+function statusLabel(ev) {
+  const s = liveStatus(ev);
+  if (s==="open")      return '<span class="status-pill open">Open</span>';
+  if (s==="scheduled") return '<span class="status-pill scheduled">Scheduled</span>';
+  if (s==="ended")     return '<span class="status-pill ended">Ended</span>';
+  return '<span class="status-pill closed">Closed</span>';
+}
 
 /* ══════════════════════════════════════════
    TIGER KEYBOARD TRIGGER
 ══════════════════════════════════════════ */
 (function(){
-  const SEQ = "TIGER"; let buf = ""; let ht;
-  document.addEventListener("keydown", e => {
-    if (document.getElementById("publicPage").style.display === "none") return;
+  const SEQ="TIGER"; let buf=""; let ht;
+  document.addEventListener("keydown",e=>{
+    if (document.getElementById("publicPage").style.display==="none") return;
     if (["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)) return;
     buf += e.key.toUpperCase();
-    if (buf.length > SEQ.length) buf = buf.slice(-SEQ.length);
-    if (buf === "T") {
-      const h = document.getElementById("tigerHint");
+    if (buf.length>SEQ.length) buf=buf.slice(-SEQ.length);
+    if (buf==="T"){
+      const h=document.getElementById("tigerHint");
       h.classList.add("show"); clearTimeout(ht);
-      ht = setTimeout(() => h.classList.remove("show"), 2000);
+      ht=setTimeout(()=>h.classList.remove("show"),2000);
     }
-    if (buf === SEQ) { buf = ""; document.getElementById("tigerHint").classList.remove("show"); openAdmin(); }
+    if (buf===SEQ){buf="";document.getElementById("tigerHint").classList.remove("show");openAdmin();}
   });
 })();
 
 /* ══════════════════════════════════════════
    NAVIGATION
 ══════════════════════════════════════════ */
-function showPublic() {
-  document.getElementById("publicPage").style.display = "block";
-  document.getElementById("adminLogin").style.display = "none";
-  document.getElementById("adminPanel").style.display = "none";
+function showPublic(){
+  document.getElementById("publicPage").style.display="block";
+  document.getElementById("adminLogin").style.display="none";
+  document.getElementById("adminPanel").style.display="none";
   renderEventDropdown();
 }
-function openAdmin() {
-  if (isAdmin) { showAdminPanel(); return; }
-  document.getElementById("publicPage").style.display = "none";
-  document.getElementById("adminLogin").style.display = "block";
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("loginPw").value = "";
-  document.getElementById("loginErr").style.display = "none";
-  setTimeout(() => document.getElementById("loginPw").focus(), 100);
+function openAdmin(){
+  if(isAdmin){showAdminPanel();return;}
+  document.getElementById("publicPage").style.display="none";
+  document.getElementById("adminLogin").style.display="block";
+  document.getElementById("adminPanel").style.display="none";
+  document.getElementById("loginPw").value="";
+  document.getElementById("loginErr").style.display="none";
+  setTimeout(()=>document.getElementById("loginPw").focus(),100);
 }
-function showAdminPanel() {
-  document.getElementById("publicPage").style.display = "none";
-  document.getElementById("adminLogin").style.display = "none";
-  document.getElementById("adminPanel").style.display = "block";
+function showAdminPanel(){
+  document.getElementById("publicPage").style.display="none";
+  document.getElementById("adminLogin").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
   renderEventsTable();
   renderEntriesTable();
   renderAdminProgList();
   rebuildAdminSelects();
-  document.getElementById("seasonInput").value = SEASON_LABEL;
+  document.getElementById("seasonInput").value=SEASON_LABEL;
 }
-function doLogin() {
-  if (document.getElementById("loginPw").value === ADMIN_PASSWORD) {
-    isAdmin = true; showAdminPanel();
-  } else {
-    document.getElementById("loginErr").style.display = "block";
-    document.getElementById("loginPw").value = "";
-    document.getElementById("loginPw").focus();
-  }
+function doLogin(){
+  if(document.getElementById("loginPw").value===ADMIN_PASSWORD){isAdmin=true;showAdminPanel();}
+  else{document.getElementById("loginErr").style.display="block";document.getElementById("loginPw").value="";document.getElementById("loginPw").focus();}
 }
-function doLogout() { isAdmin = false; showPublic(); }
-function showSection(id, btn) {
-  document.querySelectorAll(".admin-section").forEach(s => s.classList.remove("active"));
-  document.querySelectorAll(".anav").forEach(b => b.classList.remove("active"));
-  document.getElementById("sec-" + id).classList.add("active");
+function doLogout(){isAdmin=false;showPublic();}
+function showSection(id,btn){
+  document.querySelectorAll(".admin-section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".anav").forEach(b=>b.classList.remove("active"));
+  document.getElementById("sec-"+id).classList.add("active");
   btn.classList.add("active");
 }
 
 /* ══════════════════════════════════════════
    DATA LOAD
 ══════════════════════════════════════════ */
-function setLoading(pct) {
-  const bar = document.getElementById("loadingBar");
-  bar.style.width = pct + "%";
-  if (pct >= 100) setTimeout(() => bar.style.width = "0%", 500);
+function setLoading(pct){
+  const bar=document.getElementById("loadingBar");
+  bar.style.width=pct+"%";
+  if(pct>=100)setTimeout(()=>bar.style.width="0%",500);
 }
-
-async function loadData() {
+async function loadData(){
   setLoading(30);
-  try {
-    const res  = await fetch(API + "?action=getAll");
+  try{
+    const res=await fetch(API+"?action=getAll");
     setLoading(60);
-    const json = await res.json();
-    allData = json.data    || [];
-    // Load events from sheet if present, else keep local
-    if (json.events && json.events.length) events = json.events;
+    const json=await res.json();
+    allData=json.data||[];
+    if(json.events&&json.events.length) events=json.events;
     setLoading(100);
     renderLeaderboard();
     renderFeed();
     renderEventDropdown();
-    if (isAdmin) { renderEventsTable(); renderEntriesTable(); }
-  } catch(e) {
+    if(isAdmin){renderEventsTable();renderEntriesTable();}
+  }catch(e){
     setLoading(100);
-    document.getElementById("leaderboard").innerHTML = '<div class="empty-state" style="color:#f07070;">Could not load data.</div>';
+    document.getElementById("leaderboard").innerHTML='<div class="empty-state" style="color:#f07070;">Could not load data.</div>';
   }
 }
 
 /* ══════════════════════════════════════════
-   EVENT DROPDOWN (public form)
+   EVENT DROPDOWN (public)
 ══════════════════════════════════════════ */
-function renderEventDropdown() {
-  const wrap = document.getElementById("eventDropdownWrap");
-  const open = events.filter(e => e.status === "open");
-  if (!open.length) {
-    wrap.innerHTML = '<div class="no-events-msg">No events open right now — check back soon!</div>';
-    document.getElementById("submitBtn").disabled = true;
+function renderEventDropdown(){
+  const wrap=document.getElementById("eventDropdownWrap");
+  const openEvts=events.filter(e=>liveStatus(e)==="open");
+  if(!openEvts.length){
+    // Check if any are scheduled
+    const next=events.filter(e=>liveStatus(e)==="scheduled").sort((a,b)=>parseLocalDT(a.openDT)-parseLocalDT(b.openDT))[0];
+    const msg = next
+      ? `No events open right now. Next: ${next.name} opens ${fmtDT(next.openDT)}.`
+      : "No events open right now — check back soon!";
+    wrap.innerHTML=`<div class="no-events-msg">${msg}</div>`;
+    document.getElementById("submitBtn").disabled=true;
     return;
   }
-  document.getElementById("submitBtn").disabled = false;
-  wrap.innerHTML = `<select id="selEvent">
+  document.getElementById("submitBtn").disabled=false;
+  wrap.innerHTML=`<select id="selEvent">
     <option value="">— Select an event —</option>
-    ${open.map(e => `<option value="${e.id}" data-type="${e.type}">${e.name}${e.date ? " — "+formatDate(e.date) : ""}</option>`).join("")}
+    ${openEvts.map(e=>`<option value="${e.id}" data-type="${e.type}">${e.name}${e.closeDT?" — closes "+fmtDT(e.closeDT):""}</option>`).join("")}
   </select>`;
 }
 
 /* ══════════════════════════════════════════
-   LOG ATTENDANCE (public)
+   LOG ATTENDANCE
 ══════════════════════════════════════════ */
-async function logAttendance() {
-  const name    = document.getElementById("inpName").value.trim();
-  const program = document.getElementById("selProgram").value;
-  const evSel   = document.getElementById("selEvent");
-  const btn     = document.getElementById("submitBtn");
-
-  if (!name)               { showToast("error","Please enter your name."); return; }
-  if (!evSel || !evSel.value) { showToast("error","Please select an event."); return; }
-
-  const eventId   = evSel.value;
-  const eventObj  = events.find(e => e.id === eventId);
-  const eventName = eventObj ? eventObj.name : eventId;
-  const eventType = eventObj ? eventObj.type : "student";
-
-  // Duplicate check — same student name + event (case-insensitive)
-  const nameLower = name.toLowerCase();
-  const duplicate = allData.some(r =>
-    (r["StudentName"]||"").toLowerCase() === nameLower &&
-    r["EventID"] === eventId
-  );
-  if (duplicate) {
-    showToast("warn","You've already logged attendance for this event!");
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = '<div class="spinner"></div>';
-
-  try {
-    await fetch(API, { method:"POST", body: JSON.stringify({
-      action:"log", program, eventType, eventName,
-      eventId, attendees:1, studentName:name
+async function logAttendance(){
+  const name=document.getElementById("inpName").value.trim();
+  const program=document.getElementById("selProgram").value;
+  const evSel=document.getElementById("selEvent");
+  const btn=document.getElementById("submitBtn");
+  if(!name){showToast("error","Please enter your name.");return;}
+  if(!evSel||!evSel.value){showToast("error","Please select an event.");return;}
+  const eventId=evSel.value;
+  const evObj=events.find(e=>e.id===eventId);
+  if(!evObj||liveStatus(evObj)!=="open"){showToast("error","That event is no longer open.");return;}
+  const nameLower=name.toLowerCase();
+  const duplicate=allData.some(r=>(r["StudentName"]||"").toLowerCase()===nameLower&&r["EventID"]===eventId);
+  if(duplicate){showToast("warn","You've already logged attendance for this event!");return;}
+  btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
+  try{
+    await fetch(API,{method:"POST",body:JSON.stringify({
+      action:"log",program,eventType:evObj.type,eventName:evObj.name,
+      eventId,attendees:1,studentName:name
     })});
     showToast("success",`✓ Attendance logged! Go ${program.split(" ")[0]}s!`);
-    document.getElementById("inpName").value = "";
-    document.getElementById("selEvent").value = "";
+    document.getElementById("inpName").value="";
+    if(document.getElementById("selEvent"))document.getElementById("selEvent").value="";
     await loadData();
-  } catch(e) {
-    showToast("error","Failed to save. Check connection.");
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<span id="submitTxt">Log My Attendance</span>';
+  }catch(e){showToast("error","Failed to save. Check connection.");}
+  btn.disabled=false;btn.innerHTML='<span id="submitTxt">Log My Attendance</span>';
 }
-
-function showToast(type, msg) {
-  const t = document.getElementById("toast");
-  t.className = "toast " + type; t.textContent = msg;
-  setTimeout(() => t.className = "toast", 5000);
+function showToast(type,msg){
+  const t=document.getElementById("toast");t.className="toast "+type;t.textContent=msg;
+  setTimeout(()=>t.className="toast",5000);
 }
 
 /* ══════════════════════════════════════════
    LEADERBOARD
 ══════════════════════════════════════════ */
-function computeStandings() {
-  const totals = {};
-  programs.forEach(p => totals[p] = { intramural:0, student:0, athletic:0 });
-  allData.forEach(row => {
-    const p=row["Program"], t=(row["EventType"]||"").toLowerCase(), n=parseInt(row["Attendees"])||0;
-    if (totals[p] && totals[p][t]!==undefined) totals[p][t]+=n;
+function computeStandings(){
+  const totals={};
+  programs.forEach(p=>totals[p]={intramural:0,student:0,athletic:0});
+  allData.forEach(r=>{
+    const p=r["Program"],t=(r["EventType"]||"").toLowerCase(),n=parseInt(r["Attendees"])||0;
+    if(totals[p]&&totals[p][t]!==undefined)totals[p][t]+=n;
   });
   return totals;
 }
-function totalFor(totals,prog,tab) {
-  if (tab==="all") return totals[prog].intramural+totals[prog].student+totals[prog].athletic;
+function totalFor(totals,prog,tab){
+  if(tab==="all")return totals[prog].intramural+totals[prog].student+totals[prog].athletic;
   return totals[prog][tab]||0;
 }
-function setTab(tab,btn) {
+function setTab(tab,btn){
   currentTab=tab;
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  btn.classList.add("active");
-  renderLeaderboard();
+  btn.classList.add("active");renderLeaderboard();
 }
-function renderLeaderboard() {
-  const totals = computeStandings();
-  const sorted = [...programs].sort((a,b)=>totalFor(totals,b,currentTab)-totalFor(totals,a,currentTab));
-  const maxPts = Math.max(1,totalFor(totals,sorted[0],currentTab));
-  const lb = document.getElementById("leaderboard");
-  if (maxPts===0) { lb.innerHTML='<div class="empty-state">No attendance logged yet — fire it up, Tigers!</div>'; updateStats(totals,sorted); return; }
-  lb.innerHTML = sorted.map((prog,i)=>{
-    const pts=totalFor(totals,prog,currentTab), pct=Math.round((pts/maxPts)*100);
+function renderLeaderboard(){
+  const totals=computeStandings();
+  const sorted=[...programs].sort((a,b)=>totalFor(totals,b,currentTab)-totalFor(totals,a,currentTab));
+  const maxPts=Math.max(1,totalFor(totals,sorted[0],currentTab));
+  const lb=document.getElementById("leaderboard");
+  if(maxPts===0){lb.innerHTML='<div class="empty-state">No attendance logged yet — fire it up, Tigers!</div>';updateStats(totals,sorted);return;}
+  lb.innerHTML=sorted.map((prog,i)=>{
+    const pts=totalFor(totals,prog,currentTab),pct=Math.round((pts/maxPts)*100);
     const color=PROG_COLORS[programs.indexOf(prog)%PROG_COLORS.length];
     const rankCls=i===0?"r1":i===1?"r2":i===2?"r3":"rn";
     const rowCls=i===0?"top1":i===1?"top2":i===2?"top3":"";
@@ -750,7 +819,7 @@ function renderLeaderboard() {
   }).join("");
   updateStats(totals,sorted);
 }
-function updateStats(totals,sorted) {
+function updateStats(totals,sorted){
   const grand=programs.reduce((s,p)=>s+totals[p].intramural+totals[p].student+totals[p].athletic,0);
   document.getElementById("sTotalAtt").textContent=grand.toLocaleString();
   document.getElementById("sTotalEvt").textContent=allData.length.toLocaleString();
@@ -759,10 +828,10 @@ function updateStats(totals,sorted) {
   document.getElementById("sLeaderPts").textContent=lpts.toLocaleString();
   document.getElementById("sLeaderSub").textContent=`I:${t.intramural}  S:${t.student}  A:${t.athletic}`;
 }
-function renderFeed() {
+function renderFeed(){
   const feed=document.getElementById("feedList");
   const recent=[...allData].reverse().slice(0,30);
-  if (!recent.length){feed.innerHTML='<div class="empty-state">No events yet — be the first!</div>';return;}
+  if(!recent.length){feed.innerHTML='<div class="empty-state">No events yet — be the first!</div>';return;}
   feed.innerHTML=recent.map(r=>{
     const color=TYPE_DOT[(r["EventType"]||"").toLowerCase()]||"#555";
     return `<div class="feed-item">
@@ -777,133 +846,143 @@ function renderFeed() {
 /* ══════════════════════════════════════════
    ADMIN — EVENTS TABLE
 ══════════════════════════════════════════ */
-function renderEventsTable() {
-  const tbody = document.getElementById("eventsTbody");
-  if (!events.length) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No events yet — create your first one!</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = events.map(ev => {
-    const count = allData.filter(r => r["EventID"]===ev.id).length;
+function renderEventsTable(){
+  const tbody=document.getElementById("eventsTbody");
+  if(!events.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text3);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No events yet — create your first one!</td></tr>`;return;}
+  tbody.innerHTML=events.map(ev=>{
+    const count=allData.filter(r=>r["EventID"]===ev.id).length;
+    const s=liveStatus(ev);
     return `<tr>
       <td style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;">${ev.name}</td>
       <td><span class="type-pill ${ev.type}">${ev.type}</span></td>
-      <td class="muted">${ev.date ? formatDate(ev.date) : "—"}</td>
-      <td><span class="status-pill ${ev.status}">${ev.status}</span></td>
+      <td class="muted" style="font-size:11px;">${ev.openDT?fmtDT(ev.openDT):"—"}</td>
+      <td class="muted" style="font-size:11px;">${ev.closeDT?fmtDT(ev.closeDT):"—"}</td>
+      <td>${statusLabel(ev)}${ev.statusOverride&&ev.statusOverride!=="auto"?` <span style="font-size:10px;color:var(--text3);">(forced)</span>`:""}</td>
       <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gold);">${count}</td>
       <td style="text-align:right;white-space:nowrap;">
         <button class="btn btn-ghost btn-sm" onclick="editEvent('${ev.id}')">Edit</button>
-        ${ev.status==="open"
-          ? `<button class="btn btn-danger btn-sm" onclick="toggleEventStatus('${ev.id}','closed')">Close</button>`
-          : `<button class="btn btn-green btn-sm"  onclick="toggleEventStatus('${ev.id}','open')">Open</button>`}
+        ${s==="open"
+          ?`<button class="btn btn-danger btn-sm" onclick="forceStatus('${ev.id}','closed')">Close</button>`
+          :`<button class="btn btn-green btn-sm" onclick="forceStatus('${ev.id}','open')">Open</button>`}
         <button class="btn btn-danger btn-sm" onclick="deleteEvent('${ev.id}')">Delete</button>
       </td>
     </tr>`;
   }).join("");
 }
 
-/* ── CREATE / EDIT EVENT MODAL ── */
-function openEventModal(id) {
-  editingEventId = id || null;
-  const ev = id ? events.find(e=>e.id===id) : null;
-  document.getElementById("eventModalTitle").textContent = id ? "Edit Event" : "Create Event";
-  document.getElementById("ev-name").value   = ev ? ev.name   : "";
-  document.getElementById("ev-type").value   = ev ? ev.type   : "intramural";
-  document.getElementById("ev-date").value   = ev ? ev.date   : "";
-  document.getElementById("ev-status").value = ev ? ev.status : "open";
-  document.getElementById("evModalStatus").className = "modal-status";
+/* ── EVENT MODAL ── */
+function openEventModal(id){
+  editingEventId=id||null;
+  const ev=id?events.find(e=>e.id===id):null;
+  document.getElementById("eventModalTitle").textContent=id?"Edit Event":"Create Event";
+  document.getElementById("ev-name").value=ev?ev.name:"";
+  document.getElementById("ev-type").value=ev?ev.type:"intramural";
+  document.getElementById("ev-status").value=ev?(ev.statusOverride||"auto"):"auto";
+
+  // Split stored "YYYY-MM-DDTHH:MM" into date + time fields
+  if(ev&&ev.openDT){
+    const [d,t]=ev.openDT.split("T");
+    document.getElementById("ev-open-date").value=d||"";
+    document.getElementById("ev-open-time").value=t||"08:00";
+  } else {
+    document.getElementById("ev-open-date").value="";
+    document.getElementById("ev-open-time").value="08:00";
+  }
+  if(ev&&ev.closeDT){
+    const [d,t]=ev.closeDT.split("T");
+    document.getElementById("ev-close-date").value=d||"";
+    document.getElementById("ev-close-time").value=t||"23:59";
+  } else {
+    document.getElementById("ev-close-date").value="";
+    document.getElementById("ev-close-time").value="23:59";
+  }
+
+  document.getElementById("evModalStatus").className="modal-status";
   document.getElementById("eventModal").classList.add("open");
   setTimeout(()=>document.getElementById("ev-name").focus(),100);
 }
-function closeEventModal() { document.getElementById("eventModal").classList.remove("open"); }
+function closeEventModal(){document.getElementById("eventModal").classList.remove("open");}
 
-async function saveEvent() {
-  const name   = document.getElementById("ev-name").value.trim();
-  const type   = document.getElementById("ev-type").value;
-  const date   = document.getElementById("ev-date").value;
-  const status = document.getElementById("ev-status").value;
-  const st     = document.getElementById("evModalStatus");
+async function saveEvent(){
+  const name=document.getElementById("ev-name").value.trim();
+  const type=document.getElementById("ev-type").value;
+  const statusOverride=document.getElementById("ev-status").value;
+  const openDate=document.getElementById("ev-open-date").value;
+  const openTime=document.getElementById("ev-open-time").value||"08:00";
+  const closeDate=document.getElementById("ev-close-date").value;
+  const closeTime=document.getElementById("ev-close-time").value||"23:59";
+  const st=document.getElementById("evModalStatus");
+  if(!name){showModalStatus(st,"Event name is required.","err");return;}
 
-  if (!name) { showModalStatus(st,"Event name is required.","err"); return; }
+  // Build local datetime strings
+  const openDT  = openDate  ? `${openDate}T${openTime}`   : "";
+  const closeDT = closeDate ? `${closeDate}T${closeTime}` : "";
 
-  const btn = document.getElementById("evSubmitBtn");
-  btn.disabled=true; btn.textContent="Saving…";
+  const btn=document.getElementById("evSubmitBtn");
+  btn.disabled=true;btn.textContent="Saving…";
 
-  if (editingEventId) {
-    // Update existing
-    const ev = events.find(e=>e.id===editingEventId);
-    ev.name=name; ev.type=type; ev.date=date; ev.status=status;
+  if(editingEventId){
+    const ev=events.find(e=>e.id===editingEventId);
+    Object.assign(ev,{name,type,openDT,closeDT,statusOverride});
   } else {
-    // Create new with unique id
-    const id = "evt_" + Date.now();
-    events.push({ id, name, type, date, status });
+    events.push({id:"evt_"+Date.now(),name,type,openDT,closeDT,statusOverride});
   }
 
-  // Persist events list to sheet
-  try {
-    await fetch(API, { method:"POST", body: JSON.stringify({ action:"saveEvents", events }) });
-    showAdminStatus("eventsStatus", editingEventId ? `✓ Event updated.` : `✓ Event "${name}" created.`, "ok");
-    renderEventsTable();
-    renderEventDropdown();
-    closeEventModal();
-  } catch(e) {
-    showModalStatus(st,"Failed to save. Check connection.","err");
-  }
-  btn.disabled=false; btn.textContent="Save Event";
-}
-
-function editEvent(id) { openEventModal(id); }
-
-async function toggleEventStatus(id, newStatus) {
-  const ev = events.find(e=>e.id===id);
-  ev.status = newStatus;
-  try {
+  try{
     await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
-    showAdminStatus("eventsStatus",`✓ Event "${ev.name}" is now ${newStatus}.`,"ok");
-    renderEventsTable(); renderEventDropdown();
-  } catch(e) { showAdminStatus("eventsStatus","Failed to update.","err"); }
+    showAdminStatus("eventsStatus",editingEventId?`✓ Event updated.`:`✓ Event "${name}" created.`,"ok");
+    renderEventsTable();renderEventDropdown();
+    closeEventModal();
+  }catch(e){showModalStatus(st,"Failed to save.","err");}
+  btn.disabled=false;btn.textContent="Save Event";
 }
 
-async function deleteEvent(id) {
-  const ev = events.find(e=>e.id===id);
-  if (!confirm(`Delete event "${ev.name}"? This won't remove existing attendance entries.`)) return;
-  events = events.filter(e=>e.id!==id);
-  try {
+function editEvent(id){openEventModal(id);}
+
+async function forceStatus(id,newStatus){
+  const ev=events.find(e=>e.id===id);
+  ev.statusOverride=newStatus;
+  try{
+    await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
+    showAdminStatus("eventsStatus",`✓ "${ev.name}" is now ${newStatus}.`,"ok");
+    renderEventsTable();renderEventDropdown();
+  }catch(e){showAdminStatus("eventsStatus","Failed to update.","err");}
+}
+
+async function deleteEvent(id){
+  const ev=events.find(e=>e.id===id);
+  if(!confirm(`Delete event "${ev.name}"? This won't remove existing attendance entries.`))return;
+  events=events.filter(e=>e.id!==id);
+  try{
     await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
     showAdminStatus("eventsStatus","✓ Event deleted.","ok");
-    renderEventsTable(); renderEventDropdown();
-  } catch(e) { showAdminStatus("eventsStatus","Failed to delete.","err"); }
+    renderEventsTable();renderEventDropdown();
+  }catch(e){showAdminStatus("eventsStatus","Failed to delete.","err");}
 }
-
 document.getElementById("eventModal").addEventListener("click",function(e){if(e.target===this)closeEventModal();});
 
 /* ══════════════════════════════════════════
    ADMIN — ENTRIES TABLE
 ══════════════════════════════════════════ */
-function renderEntriesTable() {
-  const filterText = (document.getElementById("filterText")?.value||"").toLowerCase();
-  const filterType = document.getElementById("filterType")?.value||"";
-  const filterProg = document.getElementById("filterProg")?.value||"";
-
+function renderEntriesTable(){
+  const filterText=(document.getElementById("filterText")?.value||"").toLowerCase();
+  const filterType=document.getElementById("filterType")?.value||"";
+  const filterProg=document.getElementById("filterProg")?.value||"";
   const fp=document.getElementById("filterProg");
-  const fpCur=fp.value;
-  fp.innerHTML='<option value="">All programs</option>';
+  const fpCur=fp.value;fp.innerHTML='<option value="">All programs</option>';
   programs.forEach(p=>{const o=document.createElement("option");o.value=o.textContent=p;fp.appendChild(o);});
   fp.value=programs.includes(fpCur)?fpCur:"";
-
-  const filtered = allData.filter(r=>{
+  const filtered=allData.filter(r=>{
     const prog=(r["Program"]||"").toLowerCase(),ev=(r["EventName"]||"").toLowerCase(),ty=(r["EventType"]||"").toLowerCase(),sn=(r["StudentName"]||"").toLowerCase();
-    if (filterText && !prog.includes(filterText)&&!ev.includes(filterText)&&!sn.includes(filterText)) return false;
-    if (filterType && ty!==filterType) return false;
-    if (filterProg && r["Program"]!==filterProg) return false;
+    if(filterText&&!prog.includes(filterText)&&!ev.includes(filterText)&&!sn.includes(filterText))return false;
+    if(filterType&&ty!==filterType)return false;
+    if(filterProg&&r["Program"]!==filterProg)return false;
     return true;
   });
-
   document.getElementById("entryCount").textContent=`${filtered.length} of ${allData.length} entries`;
   const tbody=document.getElementById("entriesTbody");
-  if (!filtered.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No entries match</td></tr>`;return;}
-
-  tbody.innerHTML = filtered.map(r=>{
+  if(!filtered.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No entries match</td></tr>`;return;}
+  tbody.innerHTML=filtered.map(r=>{
     const idx=allData.indexOf(r);
     const tl=(r["EventType"]||"").toLowerCase();
     const ts=r["Timestamp"]?new Date(r["Timestamp"]).toLocaleString([],{month:"short",day:"numeric",year:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
@@ -933,7 +1012,7 @@ function renderEntriesTable() {
               <option value="athletic"${tl==="athletic"?" selected":""}>Athletic</option>
             </select>
           </div>
-          <div class="form-group" style="margin:0;"><label>Event</label>
+          <div class="form-group" style="margin:0;"><label>Event Name</label>
             <input type="text" id="ep-evnt-${idx}" value="${r["EventName"]||""}" />
           </div>
           <div class="form-group" style="margin:0;"><label>Student</label>
@@ -948,7 +1027,6 @@ function renderEntriesTable() {
     </tr>`;
   }).join("");
 }
-
 function toggleEditEntry(idx){const er=document.getElementById("editrow-"+idx);er.style.display=er.style.display==="table-row"?"none":"table-row";}
 function saveEntryEdit(idx){
   const prog=document.getElementById(`ep-prog-${idx}`).value;
@@ -970,16 +1048,13 @@ function deleteEntry(idx){
 
 /* ── ADD ENTRY MODAL ── */
 function rebuildAdminSelects(){
-  ["ae-prog"].forEach(id=>{
-    const s=document.getElementById(id);if(!s)return;
-    const cur=s.value;s.innerHTML="";
-    programs.forEach(p=>{const o=document.createElement("option");o.value=o.textContent=p;s.appendChild(o);});
-    if(programs.includes(cur))s.value=cur;
-  });
-  // ae-event select
+  const s=document.getElementById("ae-prog");if(!s)return;
+  const cur=s.value;s.innerHTML="";
+  programs.forEach(p=>{const o=document.createElement("option");o.value=o.textContent=p;s.appendChild(o);});
+  if(programs.includes(cur))s.value=cur;
   const es=document.getElementById("ae-event");if(!es)return;
   es.innerHTML='<option value="">— Select event —</option>';
-  events.forEach(ev=>{const o=document.createElement("option");o.value=ev.id;o.textContent=`${ev.name} (${ev.type}${ev.date?" — "+formatDate(ev.date):""})`;es.appendChild(o);});
+  events.forEach(ev=>{const o=document.createElement("option");o.value=ev.id;o.textContent=`${ev.name} (${ev.type}${ev.openDT?" — "+fmtDateShort(ev.openDT):""})`;es.appendChild(o);});
 }
 function openAddEntryModal(){
   rebuildAdminSelects();
@@ -997,14 +1072,10 @@ async function submitAddEntry(){
   if(!name){showModalStatus(st,"Student name is required.","err");return;}
   if(!evId){showModalStatus(st,"Please select an event.","err");return;}
   const evObj=events.find(e=>e.id===evId);
-  const evName=evObj?evObj.name:evId;
-  const evType=evObj?evObj.type:"student";
-  const btn=document.getElementById("aeSubmitBtn");
-  btn.disabled=true;btn.textContent="Saving…";
+  const btn=document.getElementById("aeSubmitBtn");btn.disabled=true;btn.textContent="Saving…";
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"log",program:prog,eventType:evType,eventName:evName,eventId:evId,attendees:1,studentName:name})});
-    await loadData();
-    closeAddEntryModal();
+    await fetch(API,{method:"POST",body:JSON.stringify({action:"log",program:prog,eventType:evObj?evObj.type:"student",eventName:evObj?evObj.name:evId,eventId:evId,attendees:1,studentName:name})});
+    await loadData();closeAddEntryModal();
     showAdminStatus("entriesStatus",`✓ Entry added for ${name}.`,"ok");
   }catch(e){showModalStatus(st,"Failed to save.","err");}
   btn.disabled=false;btn.textContent="Add Entry";
@@ -1014,6 +1085,12 @@ document.getElementById("addEntryModal").addEventListener("click",function(e){if
 /* ══════════════════════════════════════════
    ADMIN — PROGRAMS
 ══════════════════════════════════════════ */
+function rebuildProgramSelect(){
+  const s=document.getElementById("selProgram");const cur=s.value;s.innerHTML="";
+  programs.forEach(p=>{const o=document.createElement("option");o.value=o.textContent=p;s.appendChild(o);});
+  if(programs.includes(cur))s.value=cur;
+}
+rebuildProgramSelect();
 function renderAdminProgList(){
   document.getElementById("adminProgList").innerHTML=programs.map((p,i)=>`
     <div class="prog-item">
@@ -1051,16 +1128,6 @@ function addProgram(){
 }
 
 /* ══════════════════════════════════════════
-   PROGRAM SELECT (public)
-══════════════════════════════════════════ */
-function rebuildProgramSelect(){
-  const s=document.getElementById("selProgram");const cur=s.value;s.innerHTML="";
-  programs.forEach(p=>{const o=document.createElement("option");o.value=o.textContent=p;s.appendChild(o);});
-  if(programs.includes(cur))s.value=cur;
-}
-rebuildProgramSelect();
-
-/* ══════════════════════════════════════════
    SETTINGS
 ══════════════════════════════════════════ */
 function saveSeason(){
@@ -1080,29 +1147,20 @@ function changePassword(){
 /* ══════════════════════════════════════════
    HELPERS
 ══════════════════════════════════════════ */
-function formatDate(d){
-  if(!d)return"";
-  const [y,m,day]=d.split("-");
-  return new Date(y,m-1,day).toLocaleDateString([],{month:"short",day:"numeric",year:"numeric"});
-}
 function showAdminStatus(id,msg,type){
   const el=document.getElementById(id);el.textContent=msg;el.className="status-msg "+type;
   setTimeout(()=>el.className="status-msg",5000);
 }
-function showStatus(el,msg,type){
-  el.textContent=msg;el.className="status-msg "+type;
-  setTimeout(()=>el.className="status-msg",6000);
-}
-function showModalStatus(el,msg,type){
-  el.textContent=msg;el.className="modal-status "+type;
-  setTimeout(()=>el.className="modal-status",5000);
-}
+function showStatus(el,msg,type){el.textContent=msg;el.className="status-msg "+type;setTimeout(()=>el.className="status-msg",6000);}
+function showModalStatus(el,msg,type){el.textContent=msg;el.className="modal-status "+type;setTimeout(()=>el.className="modal-status",5000);}
 
 /* ══════════════════════════════════════════
-   INIT
+   INIT — auto-refresh every 60s, re-evaluate event statuses every 30s
 ══════════════════════════════════════════ */
 loadData();
 setInterval(loadData,60000);
+// Re-evaluate scheduled open/close without a full reload
+setInterval(()=>{renderEventDropdown();if(isAdmin)renderEventsTable();},30000);
 </script>
 </body>
 </html>
