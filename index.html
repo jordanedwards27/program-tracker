@@ -602,19 +602,20 @@ function parseLocalDT(str) {
 
 // Get the Mountain Time UTC offset in milliseconds for a given Date
 function getMTOffsetMs(date) {
-  // "America/Denver" is UTC-7 MDT or UTC-6 MST ... wait, MT is UTC-7 MDT / UTC-6 MST
-  // We use the Intl trick: format the date in MT and compare to UTC.
-  const mtStr  = new Intl.DateTimeFormat("en-US", {
+  // Use en-CA locale for unambiguous YYYY-MM-DD HH:MM:SS 24h output
+  const mtStr = new Intl.DateTimeFormat("en-CA", {
     timeZone: MT_ZONE,
-    year:"numeric",month:"2-digit",day:"2-digit",
-    hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
+    year:"numeric", month:"2-digit", day:"2-digit",
+    hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
   }).format(date);
-  // mtStr looks like "06/09/2026, 10:27:00"
-  const [datePt, timePt] = mtStr.split(", ");
-  const [mm2,dd2,yyyy2]  = datePt.split("/").map(Number);
-  const [hh2,mi2,ss2]    = timePt.split(":").map(Number);
-  const mtAsUtc = Date.UTC(yyyy2, mm2-1, dd2, hh2, mi2, ss2);
-  return date.getTime() - mtAsUtc; // negative = MT is behind UTC
+  // en-CA gives: "2026-06-09, 10:27:00"
+  const clean = mtStr.replace(",","").trim();
+  const parts = clean.split(/\s+/);
+  const [yyyy2,mm2,dd2] = parts[0].split("-").map(Number);
+  let   [hh2,mi2,ss2]   = parts[1].split(":").map(Number);
+  if (hh2 === 24) hh2 = 0;
+  const mtAsUtc = Date.UTC(yyyy2, mm2-1, dd2, hh2, mi2, ss2||0);
+  return date.getTime() - mtAsUtc;
 }
 
 // Get current time as a Date, but evaluated against MT
