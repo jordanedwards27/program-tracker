@@ -580,74 +580,67 @@ let editingEventId = null;
    We parse them with local time — never UTC — to avoid the off-by-one-day bug.
 ══════════════════════════════════════════ */
 
-// Mountain Time helpers
-// Stored format: "YYYY-MM-DDTHH:MM" — treated as Mountain Time always,
-// regardless of what device/timezone the browser is on.
+// ── DATE/TIME HELPERS ──
+// Stored format: "YYYY-MM-DDTHH:MM" (24h, Mountain Time).
+// Strategy: append ":00" and the current MT UTC offset as a fixed string
+// so the browser parses it as the correct instant — no Intl offset math needed.
 const MT_ZONE = "America/Denver";
 
-// Convert a "YYYY-MM-DDTHH:MM" Mountain Time string → UTC Date object
+// Return current MT offset string like "-06:00" or "-07:00"
+function mtOffsetStr() {
+  // Ask Intl for the short offset name in MT right now
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: MT_ZONE, timeZoneName: "shortOffset"
+  }).formatToParts(now);
+  const tzPart = parts.find(p => p.type === "timeZoneName");
+  // tzPart.value is like "GMT-6" or "GMT-7"
+  if (tzPart) {
+    const m = tzPart.value.match(/GMT([+-]\d+)/);
+    if (m) {
+      const h = parseInt(m[1]);
+      const sign = h < 0 ? "-" : "+";
+      return sign + String(Math.abs(h)).padStart(2,"0") + ":00";
+    }
+  }
+  return "-06:00"; // MDT fallback
+}
+
+// Parse "YYYY-MM-DDTHH:MM" stored as MT → proper Date
 function parseLocalDT(str) {
   if (!str) return null;
-  // Append a fake UTC offset so the browser interprets it as MT
-  // We do this by formatting a reference time in MT and shifting accordingly.
-  // Simplest reliable approach: use Intl to find current MT offset, apply it.
-  const [datePart, timePart = "00:00"] = str.split("T");
-  const [y,mo,d]  = datePart.split("-").map(Number);
-  const [hh,mm]   = timePart.split(":").map(Number);
-  // Build a UTC candidate and find the MT offset at that moment
-  const utcGuess  = Date.UTC(y, mo-1, d, hh, mm);
-  const mtOffset  = getMTOffsetMs(new Date(utcGuess));
-  return new Date(utcGuess - mtOffset);
+  // Append seconds + offset so it parses as the right UTC instant
+  const iso = str + ":00" + mtOffsetStr();
+  const dt = new Date(iso);
+  return isNaN(dt) ? null : dt;
 }
 
-// Get the Mountain Time UTC offset in milliseconds for a given Date
-function getMTOffsetMs(date) {
-  // Use en-CA locale for unambiguous YYYY-MM-DD HH:MM:SS 24h output
-  const mtStr = new Intl.DateTimeFormat("en-CA", {
-    timeZone: MT_ZONE,
-    year:"numeric", month:"2-digit", day:"2-digit",
-    hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
-  }).format(date);
-  // en-CA gives: "2026-06-09, 10:27:00"
-  const clean = mtStr.replace(",","").trim();
-  const parts = clean.split(/\s+/);
-  const [yyyy2,mm2,dd2] = parts[0].split("-").map(Number);
-  let   [hh2,mi2,ss2]   = parts[1].split(":").map(Number);
-  if (hh2 === 24) hh2 = 0;
-  const mtAsUtc = Date.UTC(yyyy2, mm2-1, dd2, hh2, mi2, ss2||0);
-  return date.getTime() - mtAsUtc;
-}
-
-// Get current time as a Date, but evaluated against MT
-function nowMT() { return new Date(); }
-
-// Format a stored "YYYY-MM-DDTHH:MM" for display in MT: "Jun 5, 2026 at 8:00 AM MT"
+// "Jun 5, 2026 at 8:00 PM MT"
 function fmtDT(str) {
   if (!str) return "—";
   const dt = parseLocalDT(str);
-  if (!dt || isNaN(dt)) return "—";
-  return dt.toLocaleDateString("en-US",{timeZone:MT_ZONE,month:"short",day:"numeric",year:"numeric"})
-    + " at "
-    + dt.toLocaleTimeString("en-US",{timeZone:MT_ZONE,hour:"numeric",minute:"2-digit"})
-    + " MT";
+  if (!dt) return "—";
+  const date = dt.toLocaleDateString("en-US", { timeZone:MT_ZONE, month:"short", day:"numeric", year:"numeric" });
+  const time = dt.toLocaleTimeString("en-US", { timeZone:MT_ZONE, hour:"numeric", minute:"2-digit", hour12:true });
+  return date + " at " + time + " MT";
 }
 
-// Short date only in MT: "Jun 5"
+// "Jun 5"
 function fmtDateShort(str) {
   if (!str) return "—";
   const dt = parseLocalDT(str);
-  if (!dt || isNaN(dt)) return "—";
-  return dt.toLocaleDateString("en-US",{timeZone:MT_ZONE,month:"short",day:"numeric"});
+  if (!dt) return "—";
+  return dt.toLocaleDateString("en-US", { timeZone:MT_ZONE, month:"short", day:"numeric" });
 }
 
-// Compute the live status of an event right now (compared in MT)
+// Live status of an event compared to now
 function liveStatus(ev) {
   if (ev.statusOverride === "open")   return "open";
   if (ev.statusOverride === "closed") return "closed";
-  const now    = nowMT();
+  const now    = new Date();
   const opens  = ev.openDT  ? parseLocalDT(ev.openDT)  : null;
   const closes = ev.closeDT ? parseLocalDT(ev.closeDT) : null;
-  if (opens && now < opens)   return "scheduled";
+  if (opens  && now < opens)  return "scheduled";
   if (closes && now > closes) return "ended";
   if (opens || closes)        return "open";
   return "closed";
