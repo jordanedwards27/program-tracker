@@ -88,7 +88,8 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   color:var(--text); padding:9px 12px; font-family:'Barlow',sans-serif; font-size:13px;
   appearance:none; -webkit-appearance:none; outline:none; transition:border-color .15s;
 }
-.form-group select:focus, .form-group input:focus { border-color:var(--gold); }
+.form-group select:focus, .form-group input:focus, .form-group textarea:focus { border-color:var(--gold); }
+.form-group textarea { width:100%; background:var(--bg3); border:1px solid var(--border2); border-radius:var(--radius); color:var(--text); padding:9px 12px; font-family:'Barlow',sans-serif; font-size:13px; outline:none; transition:border-color .15s; }
 select option { background:#222; }
 .no-events-msg { font-size:12px; color:var(--text3); padding:10px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.05em; text-transform:uppercase; }
 
@@ -121,6 +122,29 @@ select option { background:#222; }
 /* FOOTER */
 .footer { text-align:center; padding:1.5rem 2rem 2rem; color:var(--text3); font-size:11px; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.1em; border-top:1px solid var(--border); max-width:1120px; margin:0 auto; }
 .footer a { color:var(--gold); text-decoration:none; }
+
+/* UPCOMING EVENTS */
+.upcoming-section { max-width:1120px; margin:0 auto 0; padding:0 2rem; }
+.upcoming-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; }
+.upcoming-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1rem 1.25rem; position:relative; overflow:hidden; transition:border-color .15s; }
+.upcoming-card:hover { border-color:var(--border2); }
+.upcoming-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.upcoming-card.intra::before { background:var(--gold); }
+.upcoming-card.student::before { background:var(--blue); }
+.upcoming-card.athletic::before { background:var(--crimson); }
+.upcoming-card .uc-type { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-bottom:5px; }
+.upcoming-card.intra .uc-type { color:var(--gold); }
+.upcoming-card.student .uc-type { color:#82AEFF; }
+.upcoming-card.athletic .uc-type { color:#ff6b60; }
+.upcoming-card .uc-name { font-family:'Barlow Condensed',sans-serif; font-size:17px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; color:var(--text); line-height:1.1; margin-bottom:5px; }
+.upcoming-card .uc-dt { font-size:12px; color:var(--text2); margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+.upcoming-card .uc-desc { font-size:12px; color:var(--text3); line-height:1.55; }
+.upcoming-card .uc-status { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:2px 7px; border-radius:3px; margin-bottom:6px; }
+.uc-status.open-now { background:rgba(46,204,138,0.15); color:#5ADBA4; }
+.uc-status.scheduled { background:rgba(74,140,247,0.15); color:#82AEFF; }
+.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
+.upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2); }
+.upcoming-empty { font-family:'Barlow Condensed',sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text3); padding:.75rem 0; }
 
 /* TIGER HINT */
 .tiger-hint { position:fixed; bottom:18px; right:18px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--text3); opacity:0; transition:opacity .5s; pointer-events:none; }
@@ -256,6 +280,14 @@ td.muted { color:var(--text2); font-size:12px; }
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- UPCOMING EVENTS (public) -->
+  <div class="upcoming-section" id="upcomingSection" style="display:none;">
+    <div class="upcoming-section-header">
+      <span class="upcoming-section-title">📅 Upcoming &amp; Open Events</span>
+    </div>
+    <div class="upcoming-grid" id="upcomingGrid"></div>
   </div>
 
   <div class="stats-section">
@@ -517,6 +549,19 @@ td.muted { color:var(--text2); font-size:12px; }
       </select>
     </div>
 
+    <div class="form-group">
+      <label>Description (shown to students)</label>
+      <textarea id="ev-desc" rows="3" placeholder="e.g. Come cheer on the Tigers at the gym! Attendance counts for your program." style="resize:vertical;"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Show on Upcoming Events list?</label>
+      <select id="ev-show">
+        <option value="yes">Yes — show students this event</option>
+        <option value="no">No — hide from upcoming list</option>
+      </select>
+    </div>
+
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeEventModal()">Cancel</button>
       <button class="btn btn-gold" id="evSubmitBtn" onclick="saveEvent()">Save Event</button>
@@ -766,6 +811,7 @@ async function loadData(){
     renderLeaderboard();
     renderFeed();
     renderEventDropdown();
+    renderUpcomingEvents();
     if(isAdmin){renderEventsTable();renderEntriesTable();}
   }catch(e){
     setLoading(100);
@@ -903,6 +949,50 @@ function renderFeed(){
 /* ══════════════════════════════════════════
    ADMIN — EVENTS TABLE
 ══════════════════════════════════════════ */
+function renderUpcomingEvents(){
+  const section = document.getElementById("upcomingSection");
+  const grid    = document.getElementById("upcomingGrid");
+  // Show events that are open or scheduled AND have showUpcoming !== "no"
+  const visible = events.filter(ev => {
+    if(ev.showUpcoming === "no") return false;
+    const s = liveStatus(ev);
+    return s === "open" || s === "scheduled";
+  }).sort((a,b) => {
+    // Sort: open first, then by open time ascending
+    const sa = liveStatus(a), sb = liveStatus(b);
+    if(sa === "open" && sb !== "open") return -1;
+    if(sb === "open" && sa !== "open") return 1;
+    const da = a.openDT ? parseLocalDT(a.openDT) : new Date(9999,0);
+    const db = b.openDT ? parseLocalDT(b.openDT) : new Date(9999,0);
+    return da - db;
+  });
+
+  if(!visible.length){ section.style.display="none"; return; }
+  section.style.display="block";
+
+  grid.innerHTML = visible.map(ev => {
+    const s    = liveStatus(ev);
+    const type = ev.type || "student";
+    const statusChip = s === "open"
+      ? '<span class="uc-status open-now">Open Now — Log Attendance</span>'
+      : '<span class="uc-status scheduled">Coming Up</span>';
+    const dtLine = (() => {
+      if(s === "open" && ev.closeDT)  return "Closes " + fmtDT(ev.closeDT);
+      if(s === "scheduled" && ev.openDT) return "Opens " + fmtDT(ev.openDT);
+      if(ev.openDT) return fmtDT(ev.openDT);
+      return "";
+    })();
+    const typeLabel = type === "intramural" ? "⚽ Intramural" : type === "athletic" ? "🏟 Athletic" : "🎉 Student Life";
+    return `<div class="upcoming-card ${type}">
+      <div class="uc-type">${typeLabel}</div>
+      ${statusChip}
+      <div class="uc-name">${ev.name}</div>
+      ${dtLine ? `<div class="uc-dt">📅 ${dtLine}</div>` : ""}
+      ${ev.desc ? `<div class="uc-desc">${ev.desc}</div>` : ""}
+    </div>`;
+  }).join("");
+}
+
 function renderEventsTable(){
   const tbody=document.getElementById("eventsTbody");
   if(!events.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text3);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;">No events yet — create your first one!</td></tr>`;return;}
@@ -914,7 +1004,7 @@ function renderEventsTable(){
       <td><span class="type-pill ${ev.type}">${ev.type}</span></td>
       <td class="muted" style="font-size:11px;">${ev.openDT?fmtDT(ev.openDT):"—"}</td>
       <td class="muted" style="font-size:11px;">${ev.closeDT?fmtDT(ev.closeDT):"—"}</td>
-      <td>${statusLabel(ev)}${ev.statusOverride&&ev.statusOverride!=="auto"?` <span style="font-size:10px;color:var(--text3);">(forced)</span>`:""}</td>
+      <td>${statusLabel(ev)}${ev.statusOverride&&ev.statusOverride!=="auto"?` <span style="font-size:10px;color:var(--text3);">(forced)</span>`:""} ${ev.showUpcoming==="no"?'<span style="font-size:10px;color:var(--text3);">· hidden</span>':''}</td>
       <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gold);">${count}</td>
       <td style="text-align:right;white-space:nowrap;">
         <button class="btn btn-ghost btn-sm" onclick="editEvent('${ev.id}')">Edit</button>
@@ -935,6 +1025,8 @@ function openEventModal(id){
   document.getElementById("ev-name").value=ev?ev.name:"";
   document.getElementById("ev-type").value=ev?ev.type:"intramural";
   document.getElementById("ev-status").value=ev?(ev.statusOverride||"auto"):"auto";
+  document.getElementById("ev-desc").value=ev?(ev.desc||""):"";
+  document.getElementById("ev-show").value=ev?(ev.showUpcoming||"yes"):"yes";
 
   // Split stored "YYYY-MM-DDTHH:MM" into date + time fields
   if(ev&&ev.openDT){
@@ -964,6 +1056,8 @@ async function saveEvent(){
   const name=document.getElementById("ev-name").value.trim();
   const type=document.getElementById("ev-type").value;
   const statusOverride=document.getElementById("ev-status").value;
+  const desc=document.getElementById("ev-desc").value.trim();
+  const showUpcoming=document.getElementById("ev-show").value;
   const openDate=document.getElementById("ev-open-date").value;
   const openTime=document.getElementById("ev-open-time").value||"08:00";
   const closeDate=document.getElementById("ev-close-date").value;
@@ -980,15 +1074,15 @@ async function saveEvent(){
 
   if(editingEventId){
     const ev=events.find(e=>e.id===editingEventId);
-    Object.assign(ev,{name,type,openDT,closeDT,statusOverride});
+    Object.assign(ev,{name,type,openDT,closeDT,statusOverride,desc,showUpcoming});
   } else {
-    events.push({id:"evt_"+Date.now(),name,type,openDT,closeDT,statusOverride});
+    events.push({id:"evt_"+Date.now(),name,type,openDT,closeDT,statusOverride,desc,showUpcoming});
   }
 
   try{
     await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
     showAdminStatus("eventsStatus",editingEventId?`✓ Event updated.`:`✓ Event "${name}" created.`,"ok");
-    renderEventsTable();renderEventDropdown();
+    renderEventsTable();renderEventDropdown();renderUpcomingEvents();
     closeEventModal();
   }catch(e){showModalStatus(st,"Failed to save.","err");}
   btn.disabled=false;btn.textContent="Save Event";
@@ -1002,7 +1096,7 @@ async function forceStatus(id,newStatus){
   try{
     await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
     showAdminStatus("eventsStatus",`✓ "${ev.name}" is now ${newStatus}.`,"ok");
-    renderEventsTable();renderEventDropdown();
+    renderEventsTable();renderEventDropdown();renderUpcomingEvents();
   }catch(e){showAdminStatus("eventsStatus","Failed to update.","err");}
 }
 
@@ -1013,7 +1107,7 @@ async function deleteEvent(id){
   try{
     await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
     showAdminStatus("eventsStatus","✓ Event deleted.","ok");
-    renderEventsTable();renderEventDropdown();
+    renderEventsTable();renderEventDropdown();renderUpcomingEvents();
   }catch(e){showAdminStatus("eventsStatus","Failed to delete.","err");}
 }
 document.getElementById("eventModal").addEventListener("click",function(e){if(e.target===this)closeEventModal();});
@@ -1217,7 +1311,7 @@ function showModalStatus(el,msg,type){el.textContent=msg;el.className="modal-sta
 loadData();
 setInterval(loadData,60000);
 // Re-evaluate scheduled open/close without a full reload
-setInterval(()=>{renderEventDropdown();if(isAdmin)renderEventsTable();},30000);
+setInterval(()=>{renderEventDropdown();renderUpcomingEvents();if(isAdmin)renderEventsTable();},30000);
 </script>
 </body>
 </html>
