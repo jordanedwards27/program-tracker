@@ -123,12 +123,23 @@ select option { background:#222; }
 .footer { text-align:center; padding:1.5rem 2rem 2rem; color:var(--text3); font-size:11px; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.1em; border-top:1px solid var(--border); max-width:1120px; margin:0 auto; }
 .footer a { color:var(--gold); text-decoration:none; }
 
-/* UPCOMING EVENTS */
-.upcoming-section { max-width:1120px; margin:0 auto 0; padding:0 2rem; }
-.upcoming-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; }
-.upcoming-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1rem 1.25rem; position:relative; overflow:hidden; transition:border-color .15s; }
+/* UPCOMING EVENTS SLIDER */
+.upcoming-section { max-width:1120px; margin:0 auto; padding:0 2rem; }
+.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
+.upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2); }
+.slider-nav { display:flex; align-items:center; gap:6px; }
+.slider-btn { background:transparent; border:1px solid var(--border2); border-radius:6px; color:var(--text2); width:28px; height:28px; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
+.slider-btn:hover { background:var(--bg3); color:var(--text); }
+.slider-btn:disabled { opacity:.25; cursor:not-allowed; }
+.slider-dots { display:flex; gap:5px; align-items:center; }
+.slider-dot { width:6px; height:6px; border-radius:50%; background:var(--bg4); transition:all .2s; cursor:pointer; }
+.slider-dot.active { background:var(--gold); width:18px; border-radius:3px; }
+.upcoming-track-wrap { overflow:hidden; border-radius:var(--radius-lg); }
+.upcoming-track { display:flex; gap:12px; transition:transform .35s cubic-bezier(.4,0,.2,1); }
+.upcoming-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1rem 1.25rem; position:relative; overflow:hidden; transition:border-color .15s; flex:0 0 300px; min-width:0; }
+@media(max-width:640px){ .upcoming-card { flex:0 0 calc(100vw - 4rem); } }
 .upcoming-card:hover { border-color:var(--border2); }
-.upcoming-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.upcoming-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
 .upcoming-card.intra::before { background:var(--gold); }
 .upcoming-card.student::before { background:var(--blue); }
 .upcoming-card.athletic::before { background:var(--crimson); }
@@ -142,9 +153,6 @@ select option { background:#222; }
 .upcoming-card .uc-status { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:2px 7px; border-radius:3px; margin-bottom:6px; }
 .uc-status.open-now { background:rgba(46,204,138,0.15); color:#5ADBA4; }
 .uc-status.scheduled { background:rgba(74,140,247,0.15); color:#82AEFF; }
-.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
-.upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2); }
-.upcoming-empty { font-family:'Barlow Condensed',sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text3); padding:.75rem 0; }
 
 /* TIGER HINT */
 .tiger-hint { position:fixed; bottom:18px; right:18px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--text3); opacity:0; transition:opacity .5s; pointer-events:none; }
@@ -282,12 +290,19 @@ td.muted { color:var(--text2); font-size:12px; }
     </div>
   </div>
 
-  <!-- UPCOMING EVENTS (public) -->
+  <!-- UPCOMING EVENTS SLIDER (public) -->
   <div class="upcoming-section" id="upcomingSection" style="display:none;">
     <div class="upcoming-section-header">
       <span class="upcoming-section-title">📅 Upcoming &amp; Open Events</span>
+      <div class="slider-nav">
+        <button class="slider-btn" id="sliderPrev" onclick="sliderMove(-1)" disabled>&#8592;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="sliderNext" onclick="sliderMove(1)">&#8594;</button>
+      </div>
     </div>
-    <div class="upcoming-grid" id="upcomingGrid"></div>
+    <div class="upcoming-track-wrap">
+      <div class="upcoming-track" id="upcomingTrack"></div>
+    </div>
   </div>
 
   <div class="stats-section">
@@ -951,14 +966,14 @@ function renderFeed(){
 ══════════════════════════════════════════ */
 function renderUpcomingEvents(){
   const section = document.getElementById("upcomingSection");
-  const grid    = document.getElementById("upcomingGrid");
-  // Show events that are open or scheduled AND have showUpcoming !== "no"
+  const track   = document.getElementById("upcomingTrack");
+  const dotsEl  = document.getElementById("sliderDots");
+
   const visible = events.filter(ev => {
     if(ev.showUpcoming === "no") return false;
     const s = liveStatus(ev);
     return s === "open" || s === "scheduled";
   }).sort((a,b) => {
-    // Sort: open first, then by open time ascending
     const sa = liveStatus(a), sb = liveStatus(b);
     if(sa === "open" && sb !== "open") return -1;
     if(sb === "open" && sa !== "open") return 1;
@@ -967,31 +982,68 @@ function renderUpcomingEvents(){
     return da - db;
   });
 
-  if(!visible.length){ section.style.display="none"; return; }
+  if(!visible.length){ section.style.display="none"; sliderIndex=0; return; }
   section.style.display="block";
 
-  grid.innerHTML = visible.map(ev => {
+  track.innerHTML = visible.map(ev => {
     const s    = liveStatus(ev);
     const type = ev.type || "student";
     const statusChip = s === "open"
       ? '<span class="uc-status open-now">Open Now — Log Attendance</span>'
       : '<span class="uc-status scheduled">Coming Up</span>';
     const dtLine = (() => {
-      if(s === "open" && ev.closeDT)  return "Closes " + fmtDT(ev.closeDT);
-      if(s === "scheduled" && ev.openDT) return "Opens " + fmtDT(ev.openDT);
+      if(s === "open"      && ev.closeDT) return "Closes " + fmtDT(ev.closeDT);
+      if(s === "scheduled" && ev.openDT)  return "Opens "  + fmtDT(ev.openDT);
       if(ev.openDT) return fmtDT(ev.openDT);
       return "";
     })();
-    const typeLabel = type === "intramural" ? "⚽ Intramural" : type === "athletic" ? "🏟 Athletic" : "🎉 Student Life";
+    const typeLabel = type==="intramural"?"⚽ Intramural":type==="athletic"?"🏟 Athletic":"🎉 Student Life";
     return `<div class="upcoming-card ${type}">
       <div class="uc-type">${typeLabel}</div>
       ${statusChip}
       <div class="uc-name">${ev.name}</div>
-      ${dtLine ? `<div class="uc-dt">📅 ${dtLine}</div>` : ""}
-      ${ev.desc ? `<div class="uc-desc">${ev.desc}</div>` : ""}
+      ${dtLine?`<div class="uc-dt">📅 ${dtLine}</div>`:""}
+      ${ev.desc?`<div class="uc-desc">${ev.desc}</div>`:""}
     </div>`;
   }).join("");
+
+  // Build dots
+  dotsEl.innerHTML = visible.map((_,i) =>
+    `<div class="slider-dot${i===sliderIndex?" active":""}" onclick="sliderGoTo(${i})"></div>`
+  ).join("");
+
+  // Clamp index in case events were removed
+  sliderIndex = Math.min(sliderIndex, visible.length - 1);
+  sliderApply(visible.length);
 }
+
+let sliderIndex = 0;
+
+function sliderApply(total){
+  const track    = document.getElementById("upcomingTrack");
+  const prevBtn  = document.getElementById("sliderPrev");
+  const nextBtn  = document.getElementById("sliderNext");
+  const dotsEl   = document.getElementById("sliderDots");
+  const cardW    = 312; // 300px card + 12px gap
+  track.style.transform = `translateX(-${sliderIndex * cardW}px)`;
+  prevBtn.disabled = sliderIndex === 0;
+  nextBtn.disabled = sliderIndex >= (total || track.children.length) - 1;
+  dotsEl.querySelectorAll(".slider-dot").forEach((d,i) =>
+    d.classList.toggle("active", i === sliderIndex)
+  );
+}
+
+function sliderMove(dir){
+  const total = document.getElementById("upcomingTrack").children.length;
+  sliderIndex = Math.max(0, Math.min(sliderIndex + dir, total - 1));
+  sliderApply(total);
+}
+
+function sliderGoTo(i){
+  sliderIndex = i;
+  sliderApply(document.getElementById("upcomingTrack").children.length);
+}
+
 
 function renderEventsTable(){
   const tbody=document.getElementById("eventsTbody");
