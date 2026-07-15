@@ -973,12 +973,19 @@ async function loadData(){
       }
     }
 
+    // Load programs from sheet if available
+    if(json.programs && json.programs.length){
+      programs = json.programs;
+      rebuildProgramSelect();
+      rebuildAdminSelects();
+    }
+
     setLoading(100);
     renderLeaderboard();
     renderFeed();
     renderEventDropdown();
     renderUpcomingEvents();
-    if(isAdmin){renderEventsTable();renderEntriesTable();}
+    if(isAdmin){renderEventsTable();renderEntriesTable();renderAdminProgList();}
   }catch(e){
     setLoading(100);
     document.getElementById("leaderboard").innerHTML='<div class="empty-state" style="color:#f07070;">Could not load data.</div>';
@@ -1466,20 +1473,32 @@ function startRename(i){document.getElementById("progedit-"+i).style.display="bl
 function cancelRename(i){document.getElementById("progedit-"+i).style.display="none";}
 function saveRename(i){
   const val=document.getElementById("proginput-"+i).value.trim();if(!val)return;
-  programs[i]=val;renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();
+  programs[i]=val;renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();savePrograms();
   showAdminStatus("programsStatus",`✓ Renamed to "${val}".`,"ok");
 }
 function deleteProg(i){
   if(!confirm(`Remove "${programs[i]}"?`))return;
-  programs.splice(i,1);renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();
+  programs.splice(i,1);renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();savePrograms();
   showAdminStatus("programsStatus","✓ Program removed.","ok");
 }
 function addProgram(){
   const val=document.getElementById("newProgInput").value.trim();if(!val)return;
   if(programs.includes(val)){showAdminStatus("programsStatus","Program already exists.","err");return;}
   programs.push(val);document.getElementById("newProgInput").value="";
-  renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();
+  renderAdminProgList();rebuildProgramSelect();rebuildAdminSelects();savePrograms();
   showAdminStatus("programsStatus",`✓ "${val}" added.`,"ok");
+}
+
+/* ══════════════════════════════════════════
+   SAVE PROGRAMS
+══════════════════════════════════════════ */
+async function savePrograms(){
+  try{
+    await fetch(API,{method:"POST",body:JSON.stringify({action:"savePrograms",programs})});
+    showAdminStatus("programsStatus","✓ Programs saved.","ok");
+  }catch(e){
+    showAdminStatus("programsStatus","Saved locally but failed to sync to sheet.","err");
+  }
 }
 
 /* ══════════════════════════════════════════
