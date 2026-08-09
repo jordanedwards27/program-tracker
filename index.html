@@ -757,8 +757,9 @@ td.muted { color:var(--text2); font-size:12px; }
 /* ══════════════════════════════════════════
    CONFIG
 ══════════════════════════════════════════ */
-const API = "https://script.google.com/macros/s/AKfycbyYQMh2fCVIeGZGo35g6lSxcwUzzCa-qZopaZB8E2uX8f0HjzVLhTYFwQcT4k-5kM9x/exec";
-let ADMIN_PASSWORD = "TechTigers1964!";
+const API        = "https://script.google.com/macros/s/AKfycbyYQMh2fCVIeGZGo35g6lSxcwUzzCa-qZopaZB8E2uX8f0HjzVLhTYFwQcT4k-5kM9x/exec";
+const API_SECRET = "49c6bedd35d62d28cdf75082b5727cd4da864816e527b173";
+const PW_HASH    = "8510e8603d2e3417cf9848f5298ce12c99c40c5dffe94cad0fc18049865c61d2";  // SHA-256 of admin password — not the password itself
 let SEASON_LABEL   = "2026–2027 Season";
 
 const DEFAULT_PROGRAMS = [
@@ -913,9 +914,17 @@ function showAdminPanel(){
   rebuildAdminSelects();
   document.getElementById("seasonInput").value=SEASON_LABEL;
 }
-function doLogin(){
-  if(document.getElementById("loginPw").value===ADMIN_PASSWORD){isAdmin=true;showAdminPanel();}
+async function doLogin(){
+  const pw = document.getElementById("loginPw").value;
+  const hash = await sha256(pw);
+  if(hash === PW_HASH){isAdmin=true;showAdminPanel();}
   else{document.getElementById("loginErr").style.display="block";document.getElementById("loginPw").value="";document.getElementById("loginPw").focus();}
+}
+
+// SHA-256 via Web Crypto API — no external library needed
+async function sha256(str){
+  const buf  = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 function doLogout(){isAdmin=false;showPublic();}
 function showSection(id,btn){
@@ -936,7 +945,7 @@ function setLoading(pct){
 async function loadData(){
   setLoading(30);
   try{
-    const res=await fetch(API+"?action=getAll");
+    const res=await fetch(API+"?action=getAll&_token="+API_SECRET);
     setLoading(60);
     const json=await res.json();
     allData=json.data||[];
@@ -1291,7 +1300,7 @@ async function saveEvent(){
   }
 
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
+    await fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"saveEvents",events})});
     showAdminStatus("eventsStatus",editingEventId?`✓ Event updated.`:`✓ Event "${name}" created.`,"ok");
     renderEventsTable();renderEventDropdown();renderUpcomingEvents();
     closeEventModal();
@@ -1305,7 +1314,7 @@ async function forceStatus(id,newStatus){
   const ev=events.find(e=>e.id===id);
   ev.statusOverride=newStatus;
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
+    await fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"saveEvents",events})});
     showAdminStatus("eventsStatus",`✓ "${ev.name}" is now ${newStatus}.`,"ok");
     renderEventsTable();renderEventDropdown();renderUpcomingEvents();
   }catch(e){showAdminStatus("eventsStatus","Failed to update.","err");}
@@ -1316,7 +1325,7 @@ async function deleteEvent(id){
   if(!confirm(`Delete event "${ev.name}"? This won't remove existing attendance entries.`))return;
   events=events.filter(e=>e.id!==id);
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"saveEvents",events})});
+    await fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"saveEvents",events})});
     showAdminStatus("eventsStatus","✓ Event deleted.","ok");
     renderEventsTable();renderEventDropdown();renderUpcomingEvents();
   }catch(e){showAdminStatus("eventsStatus","Failed to delete.","err");}
@@ -1396,13 +1405,13 @@ function saveEntryEdit(idx){
   const evnt=document.getElementById(`ep-evnt-${idx}`).value.trim()||"Event";
   const snam=document.getElementById(`ep-snam-${idx}`).value.trim();
   allData[idx]["Program"]=prog;allData[idx]["EventType"]=type;allData[idx]["EventName"]=evnt;allData[idx]["StudentName"]=snam;
-  fetch(API,{method:"POST",body:JSON.stringify({action:"updateRow",rowIndex:idx+2,program:prog,eventType:type,eventName:evnt,attendees:1,studentName:snam})}).catch(()=>{});
+  fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"updateRow",rowIndex:idx+2,program:prog,eventType:type,eventName:evnt,attendees:1,studentName:snam})}).catch(()=>{});
   showAdminStatus("entriesStatus","✓ Entry updated.","ok");
   renderEntriesTable();renderLeaderboard();renderFeed();
 }
 function deleteEntry(idx){
   if(!confirm(`Delete entry: ${allData[idx]["StudentName"]||"?"} — ${allData[idx]["EventName"]}?`))return;
-  fetch(API,{method:"POST",body:JSON.stringify({action:"deleteRow",rowIndex:idx+2})}).catch(()=>{});
+  fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"deleteRow",rowIndex:idx+2})}).catch(()=>{});
   allData.splice(idx,1);
   showAdminStatus("entriesStatus","✓ Entry deleted.","ok");
   renderEntriesTable();renderLeaderboard();renderFeed();
@@ -1436,7 +1445,7 @@ async function submitAddEntry(){
   const evObj=events.find(e=>e.id===evId);
   const btn=document.getElementById("aeSubmitBtn");btn.disabled=true;btn.textContent="Saving…";
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"log",program:prog,eventType:evObj?evObj.type:"student",eventName:evObj?evObj.name:evId,eventId:evId,attendees:1,studentName:name})});
+    await fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"log",program:prog,eventType:evObj?evObj.type:"student",eventName:evObj?evObj.name:evId,eventId:evId,attendees:1,studentName:name})});
     await loadData();closeAddEntryModal();
     showAdminStatus("entriesStatus",`✓ Entry added for ${name}.`,"ok");
   }catch(e){showModalStatus(st,"Failed to save.","err");}
@@ -1494,7 +1503,7 @@ function addProgram(){
 ══════════════════════════════════════════ */
 async function savePrograms(){
   try{
-    await fetch(API,{method:"POST",body:JSON.stringify({action:"savePrograms",programs})});
+    await fetch(API,{method:"POST",body:JSON.stringify({_token:API_SECRET,action:"savePrograms",programs})});
     showAdminStatus("programsStatus","✓ Programs saved.","ok");
   }catch(e){
     showAdminStatus("programsStatus","Saved locally but failed to sync to sheet.","err");
@@ -1509,13 +1518,14 @@ function saveSeason(){
   SEASON_LABEL=val;document.getElementById("seasonBadge").textContent="★ "+SEASON_LABEL;
   showAdminStatus("settingsStatus","✓ Season label updated.","ok");
 }
-function changePassword(){
+async function changePassword(){
   const p1=document.getElementById("newPw1").value,p2=document.getElementById("newPw2").value;
   const st=document.getElementById("pwStatus");
   if(!p1){showStatus(st,"Password cannot be empty.","err");return;}
   if(p1!==p2){showStatus(st,"Passwords do not match.","err");return;}
-  ADMIN_PASSWORD=p1;document.getElementById("newPw1").value="";document.getElementById("newPw2").value="";
-  showStatus(st,"✓ Updated for this session. Edit the HTML file and re-upload to GitHub to make it permanent.","ok");
+  const newHash = await sha256(p1);
+  document.getElementById("newPw1").value="";document.getElementById("newPw2").value="";
+  showStatus(st,`✓ Your new password hash is:\n${newHash}\n\nReplace PW_HASH in index.html with this value and re-upload to GitHub.`,"ok");
 }
 
 /* ══════════════════════════════════════════
