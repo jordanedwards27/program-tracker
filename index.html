@@ -1083,7 +1083,7 @@ async function logAttendance(){
   btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
   try{
     await fetch(API,{method:"POST",body:JSON.stringify({
-      action:"log",program,eventType:evObj.type,eventName:evObj.name,
+      _token:API_SECRET,action:"log",program,eventType:evObj.type,eventName:evObj.name,
       eventId,attendees:1,studentName:name
     })});
     showToast("success",`✓ Attendance logged! Go ${program.split(" ")[0]}s!`);
