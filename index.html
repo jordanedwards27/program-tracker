@@ -759,7 +759,7 @@ td.muted { color:var(--text2); font-size:12px; }
 ══════════════════════════════════════════ */
 const API        = "https://script.google.com/macros/s/AKfycbyYQMh2fCVIeGZGo35g6lSxcwUzzCa-qZopaZB8E2uX8f0HjzVLhTYFwQcT4k-5kM9x/exec";
 const API_SECRET = "49c6bedd35d62d28cdf75082b5727cd4da864816e527b173";
-const PW_HASH    = "8510e8603d2e3417cf9848f5298ce12c99c40c5dffe94cad0fc18049865c61d2";  // SHA-256 of admin password — not the password itself
+// Credentials are stored in Google PropertiesService — nothing sensitive in this file
 let SEASON_LABEL   = "2026–2027 Season";
 
 const DEFAULT_PROGRAMS = [
@@ -915,16 +915,31 @@ function showAdminPanel(){
   document.getElementById("seasonInput").value=SEASON_LABEL;
 }
 async function doLogin(){
-  const pw = document.getElementById("loginPw").value;
-  const hash = await sha256(pw);
-  if(hash === PW_HASH){isAdmin=true;showAdminPanel();}
-  else{document.getElementById("loginErr").style.display="block";document.getElementById("loginPw").value="";document.getElementById("loginPw").focus();}
-}
-
-// SHA-256 via Web Crypto API — no external library needed
-async function sha256(str){
-  const buf  = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  const pw  = document.getElementById("loginPw").value;
+  const btn = document.querySelector("#adminLogin .btn-gold");
+  if(!pw) return;
+  btn.disabled = true;
+  btn.textContent = "Checking…";
+  try {
+    const res  = await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({ _token: API_SECRET, action: "verifyLogin", password: pw })
+    });
+    const json = await res.json();
+    if(json.success){
+      isAdmin = true;
+      showAdminPanel();
+    } else {
+      document.getElementById("loginErr").style.display = "block";
+      document.getElementById("loginPw").value = "";
+      document.getElementById("loginPw").focus();
+    }
+  } catch(e) {
+    document.getElementById("loginErr").textContent = "Could not reach server. Check connection.";
+    document.getElementById("loginErr").style.display = "block";
+  }
+  btn.disabled = false;
+  btn.textContent = "Sign In";
 }
 function doLogout(){isAdmin=false;showPublic();}
 function showSection(id,btn){
@@ -1519,13 +1534,27 @@ function saveSeason(){
   showAdminStatus("settingsStatus","✓ Season label updated.","ok");
 }
 async function changePassword(){
-  const p1=document.getElementById("newPw1").value,p2=document.getElementById("newPw2").value;
-  const st=document.getElementById("pwStatus");
-  if(!p1){showStatus(st,"Password cannot be empty.","err");return;}
-  if(p1!==p2){showStatus(st,"Passwords do not match.","err");return;}
-  const newHash = await sha256(p1);
-  document.getElementById("newPw1").value="";document.getElementById("newPw2").value="";
-  showStatus(st,`✓ Your new password hash is:\n${newHash}\n\nReplace PW_HASH in index.html with this value and re-upload to GitHub.`,"ok");
+  const p1 = document.getElementById("newPw1").value;
+  const p2 = document.getElementById("newPw2").value;
+  const st = document.getElementById("pwStatus");
+  if(!p1){ showStatus(st,"Password cannot be empty.","err"); return; }
+  if(p1!==p2){ showStatus(st,"Passwords do not match.","err"); return; }
+  try {
+    const res  = await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({ _token: API_SECRET, action: "updatePassword", newPassword: p1 })
+    });
+    const json = await res.json();
+    if(json.success){
+      document.getElementById("newPw1").value = "";
+      document.getElementById("newPw2").value = "";
+      showStatus(st,"✓ Password updated and saved securely in Google PropertiesService.","ok");
+    } else {
+      showStatus(st,"Failed to update password. Try again.","err");
+    }
+  } catch(e) {
+    showStatus(st,"Could not reach server.","err");
+  }
 }
 
 /* ══════════════════════════════════════════
