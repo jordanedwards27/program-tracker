@@ -88,7 +88,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   /* Global padding */
   .header-inner     { padding:.65rem .9rem; gap:.4rem; }
   .stats-section    { padding:0 .9rem; margin:.6rem auto; width:100%; }
-  .upcoming-section { padding:0 .9rem; width:100%; }
+  .upcoming-section { padding:0 .9rem; width:100%; box-sizing:border-box; }
   .main             { padding:0 .9rem 2rem; gap:.65rem; width:100%; }
 
   /* Form is first in HTML — no order CSS needed */
@@ -144,6 +144,10 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 
   /* Footer */
   .footer { padding:.9rem; font-size:10px; }
+
+  /* Slider arrows always visible */
+  .slider-btn { width:28px; height:28px; font-size:14px; flex-shrink:0; }
+  .upcoming-section-title { font-size:11px; }
 
   /* Prevent filter inputs from overflowing in admin */
   .filter-row input  { min-width:100px; }
@@ -262,9 +266,9 @@ body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; 
 
 /* UPCOMING EVENTS SLIDER */
 .upcoming-section { max-width:1120px; margin:0 auto; padding:0 2rem; }
-.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
-.upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2); }
-.slider-nav { display:flex; align-items:center; gap:6px; }
+.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:nowrap; gap:6px; min-width:0; }
+.upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2);; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+.slider-nav { display:flex; align-items:center; gap:6px; flex-shrink:0; }
 .slider-btn { background:var(--bg3); border:1px solid var(--border2); border-radius:6px; color:var(--text); width:32px; height:32px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
 .slider-btn:hover { background:var(--bg3); color:var(--text); }
 .slider-btn:disabled { opacity:.25; cursor:not-allowed; }
