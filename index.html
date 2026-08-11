@@ -1218,11 +1218,21 @@ function renderUpcomingEvents(){
   // Sync sliderIndex on native scroll (swipe on mobile)
   const trackWrap = track.parentElement;
   trackWrap.onscroll = function(){
+    if(sliderScrolling) return;
     const cardWidth = track.children[0] ? track.children[0].offsetWidth + 12 : 312;
     const newIdx = Math.round(trackWrap.scrollLeft / cardWidth);
     if(newIdx !== sliderIndex){
       sliderIndex = newIdx;
-      sliderApply(visible.length);
+      // Just update dots and buttons — don't call sliderApply (avoids loop)
+      const prevBtn = document.getElementById("sliderPrev");
+      const nextBtn = document.getElementById("sliderNext");
+      const dotsEl  = document.getElementById("sliderDots");
+      const total   = track.children.length;
+      prevBtn.disabled = sliderIndex === 0;
+      nextBtn.disabled = sliderIndex >= total - 1;
+      dotsEl.querySelectorAll(".slider-dot").forEach((d,i) =>
+        d.classList.toggle("active", i === sliderIndex)
+      );
     }
   };
 
@@ -1238,14 +1248,19 @@ function renderUpcomingEvents(){
 
 let sliderIndex = 0;
 
+let sliderScrolling = false;
 function sliderApply(total){
-  const wrap    = document.getElementById("upcomingTrack").parentElement; // track-wrap
+  const wrap    = document.getElementById("upcomingTrack").parentElement;
   const track   = document.getElementById("upcomingTrack");
   const prevBtn = document.getElementById("sliderPrev");
   const nextBtn = document.getElementById("sliderNext");
   const dotsEl  = document.getElementById("sliderDots");
   const card    = track.children[sliderIndex];
-  if(card) wrap.scrollTo({ left: card.offsetLeft - 12, behavior:"smooth" });
+  if(card){
+    sliderScrolling = true;
+    wrap.scrollTo({ left: card.offsetLeft - 12, behavior:"smooth" });
+    setTimeout(() => { sliderScrolling = false; }, 500);
+  }
   prevBtn.disabled = sliderIndex === 0;
   nextBtn.disabled = sliderIndex >= (total || track.children.length) - 1;
   dotsEl.querySelectorAll(".slider-dot").forEach((d,i) =>
