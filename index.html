@@ -88,7 +88,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   /* Global padding */
   .header-inner     { padding:.65rem .9rem; gap:.4rem; }
   .stats-section    { padding:0 .9rem; margin:.6rem auto; width:100%; }
-  .upcoming-section { padding:0 .9rem; width:100%; box-sizing:border-box; }
+  .upcoming-section { max-width:1120px; margin:0 auto; padding:0 2rem; box-sizing:border-box; overflow:hidden; }
   .main             { padding:0 .9rem 2rem; gap:.65rem; width:100%; }
 
   /* Form is first in HTML — no order CSS needed */
@@ -147,7 +147,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 
   /* Slider arrows */
   .slider-btn { width:26px; height:26px; font-size:13px; }
-  .upcoming-section-title { font-size:11px; }
+  .upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
   /* Prevent filter inputs from overflowing in admin */
   .filter-row input  { min-width:100px; }
@@ -266,13 +266,11 @@ body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; 
 
 /* UPCOMING EVENTS SLIDER */
 .upcoming-section { max-width:1120px; margin:0 auto; padding:0 2rem; }
-.upcoming-section-header { display:flex; align-items:center; margin-bottom:8px; }
+.upcoming-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:8px; overflow:hidden; }
 .upcoming-section-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text2);; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
-.slider-nav { display:flex; align-items:center; gap:6px; flex-shrink:0; }
-.upcoming-slider-wrap { display:flex; align-items:center; gap:6px; width:100%; min-width:0; }
-.upcoming-slider-wrap .upcoming-track-wrap { flex:1; min-width:0; }
-.slider-btn-prev, .slider-btn-next { flex-shrink:0; }
-.slider-btn { background:var(--bg3); border:1px solid var(--border2); border-radius:6px; color:var(--text); width:32px; height:32px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
+.slider-nav { display:flex; align-items:center; gap:4px; flex-shrink:0; margin-left:4px; }
+
+.slider-btn { background:var(--bg3); border:1px solid var(--border2); border-radius:6px; color:var(--text); width:30px; height:30px; min-width:30px; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
 .slider-btn:hover { background:var(--bg3); color:var(--text); }
 .slider-btn:disabled { opacity:.25; cursor:not-allowed; }
 .slider-dots { display:flex; gap:5px; align-items:center; }
@@ -481,15 +479,15 @@ td.muted { color:var(--text2); font-size:12px; }
   <div class="upcoming-section" id="upcomingSection" style="display:none;">
     <div class="upcoming-section-header">
       <span class="upcoming-section-title">📅 Upcoming &amp; Open Events</span>
-    </div>
-    <div class="upcoming-slider-wrap">
-      <button class="slider-btn slider-btn-prev" id="sliderPrev" onclick="sliderMove(-1)" disabled>&#8592;</button>
-      <div class="upcoming-track-wrap">
-        <div class="upcoming-track" id="upcomingTrack"></div>
+      <div class="slider-nav">
+        <button class="slider-btn" id="sliderPrev" onclick="sliderMove(-1)" disabled>&#8592;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="sliderNext" onclick="sliderMove(1)">&#8594;</button>
       </div>
-      <button class="slider-btn slider-btn-next" id="sliderNext" onclick="sliderMove(1)">&#8594;</button>
     </div>
-    <div class="slider-dots" id="sliderDots" style="display:flex;justify-content:center;gap:5px;margin-top:8px;"></div>
+    <div class="upcoming-track-wrap">
+      <div class="upcoming-track" id="upcomingTrack"></div>
+    </div>
   </div>
 
   <div class="stats-section">
