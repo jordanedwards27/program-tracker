@@ -323,7 +323,7 @@ body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; 
 .anav { padding:10px 16px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; border:none; background:transparent; color:var(--text2); border-bottom:3px solid transparent; margin-bottom:-1px; transition:all .15s; white-space:nowrap; }
 .anav:hover { color:var(--text); }
 .anav.active { color:var(--gold); border-bottom-color:var(--gold); }
-.admin-body { background:var(--bg2); border:1px solid rgba(251,190,0,0.2); border-top:none; border-radius:0 0 var(--radius-lg) var(--radius-lg); padding:1.5rem; }
+.admin-body { background:var(--bg2); border:1px solid rgba(251,190,0,0.2); border-top:none; border-radius:0 0 var(--radius-lg) var(--radius-lg); padding:1.5rem; max-height:70vh; overflow-y:auto; }
 .admin-section { display:none; }
 .admin-section.active { display:block; }
 .section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--text3); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
@@ -344,7 +344,7 @@ body.light .theme-toggle:hover { background:rgba(255,255,255,0.15); color:#fff; 
 .btn:disabled { opacity:.4; cursor:not-allowed; }
 
 /* TABLE */
-.table-wrap { overflow-x:auto; }
+.table-wrap { overflow-x:auto; max-height:50vh; overflow-y:auto; }
 table { width:100%; border-collapse:collapse; font-size:13px; }
 thead th { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text3); padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
 tbody tr { border-bottom:1px solid var(--border); transition:background .1s; }
@@ -1292,7 +1292,9 @@ function sliderApply(total){
   const card    = track.children[sliderIndex];
   if(card){
     sliderScrolling = true;
-    wrap.scrollTo({ left: card.offsetLeft - 12, behavior:"smooth" });
+    // First card scrolls to 0, others use offsetLeft
+    const scrollTarget = sliderIndex === 0 ? 0 : card.offsetLeft - 12;
+    wrap.scrollTo({ left: scrollTarget, behavior:"smooth" });
     setTimeout(() => { sliderScrolling = false; }, 500);
   }
   prevBtn.disabled = sliderIndex === 0;
