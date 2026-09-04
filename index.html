@@ -1215,7 +1215,8 @@ function renderUpcomingEvents(){
 
   track.innerHTML = visible.map(ev => {
     const s    = liveStatus(ev);
-    const type = ev.type || "student";
+    const typeRaw = ev.type || "student";
+    const type = typeRaw === "intramural" ? "intra" : typeRaw; // match CSS class
     const statusChip = s === "open"
       ? '<span class="uc-status open-now">Open Now — Log Attendance</span>'
       : '<span class="uc-status scheduled">Coming Up</span>';
@@ -1225,7 +1226,7 @@ function renderUpcomingEvents(){
       if(ev.openDT) return fmtDT(ev.openDT);
       return "";
     })();
-    const typeLabel = type==="intramural"?"⚽ Intramural":type==="athletic"?"🏟 Athletic":"🎉 Student Life";
+    const typeLabel = typeRaw==="intramural"?"⚽ Intramural":typeRaw==="athletic"?"🏟 Athletic":"🎉 Student Life";
     return `<div class="upcoming-card ${type}">
       <div class="uc-type">${typeLabel}</div>
       ${statusChip}
